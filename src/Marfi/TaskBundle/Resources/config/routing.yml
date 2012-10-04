@@ -1,0 +1,5 @@
+reg_form:
+    pattern:  /
+    defaults: { _controller: MarfiTaskBundle:Default:new }
+
+

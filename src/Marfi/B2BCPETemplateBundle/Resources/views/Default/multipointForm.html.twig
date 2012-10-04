@@ -1,0 +1,19 @@
+{# qui si definisce come formattare il form con nome indicato in form_widget e con route che rimanda al controller definita in path #}
+
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Multipoint BRI ports mode configuration</title>
+		<link rel="stylesheet" href="/css/Style1.css" />
+	</head>
+  
+	<body>
+		<div class="wrap">
+			<h2>Multipoint BRI ports mode configuration</h2>
+			<form action="{{ path('multipoint') }}" method="post" {{ form_enctype(multipoint_form) }}>
+					{{ form_widget(multipoint_form) }} 
+				<br>
+					<input type="submit" />
+			</form>
+		</div>
+
+    </body>

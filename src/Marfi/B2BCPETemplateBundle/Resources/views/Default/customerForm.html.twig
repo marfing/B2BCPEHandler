@@ -1,0 +1,21 @@
+{# qui si definisce come formattare il form con nome indicato in form_widget e con route che rimanda al controller definita in path #}
+
+
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Customer ID Configuration</title>
+		<link rel="stylesheet" href="/css/Style1.css" />
+	</head>
+  
+	<body>
+		<div class="wrap">
+			<h2>Customer ID configuration</h2>
+			<form action="{{ path('customerid_check') }}" method="post" {{ form_enctype(customer_form) }}>
+					{{ form_widget(customer_form) }} 
+				<br>
+					<input type="submit" />
+			</form>
+		</div>
+
+    </body>
+{# empty Twig template #}

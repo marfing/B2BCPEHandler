@@ -1,0 +1,7 @@
+parameters:
+#    marfi_task.example.class: Marfi\TaskBundle\Example
+
+services:
+#    marfi_task.example:
+#        class: %marfi_task.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

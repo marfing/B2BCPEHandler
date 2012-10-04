@@ -1,0 +1,58 @@
+{# customization for space between radio buttons #}
+
+{% block form_widget %}
+{% spaceless %}
+    <table {{ block('widget_container_attributes') }} border="1">
+        {{ block('field_rows') }}
+        {{ form_rest(form) }}
+    </table>
+{% endspaceless %}
+{% endblock form_widget %}
+
+
+{% block field_row %}
+{% spaceless %}
+    <tr>
+        <td>
+            {{ form_label(form, label|default(null)) }}
+        </td>
+        <td>
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+        </td>
+    </tr>
+{% endspaceless %}
+{% endblock field_row %}
+
+
+{% block field_widget %}
+{% spaceless %}
+    {% set type = type|default('text') %}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{% endspaceless %}
+{% endblock field_widget %}
+
+
+{% block radio_widget %}
+{% spaceless %}
+    <br><input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+{% endspaceless %}
+{% endblock radio_widget %}
+
+		
+{% block generic_label %}
+{% spaceless %}
+    {% if required %}
+        {% set attr = attr|merge({'class': attr.class|default('') ~ ' required'}) %}
+    {% endif %}
+    <label{% for attrname,attrvalue in attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>{{ label|trans }} </label>
+{% endspaceless %}
+{% endblock %}
+
+		
+{% block checkbox_widget %}
+{% spaceless %}
+  <br><input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+{% endspaceless %}
+{% endblock checkbox_widget %}
+

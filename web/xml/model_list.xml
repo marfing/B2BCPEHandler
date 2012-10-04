@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<b2bcpelist>
+	<vendors number="2">
+		<vendor name="OneAccess" models_number="4">
+			<model name="2b2v" filename="2b2v_model.xml"/>
+			<model name="2b4v" filename="2b4v_model.xml"/>
+			<model name="4b2v" filename="4b2v_model.xml"/>
+			<model name="4b4v" filename="4b4v_model.xml"/>
+		</vendor>
+		<vendor name="Cisco" models_number="1">
+			<model name="2850" filename="2850.xml"/>
+		</vendor>
+	</vendors>
+</b2bcpelist>

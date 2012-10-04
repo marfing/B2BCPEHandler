@@ -1,0 +1,36 @@
+MarfiB2BCPETemplateBundle_homepage:
+    pattern:  /
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Default:index, name: noname }
+
+# route definita dentro index.html.twig per gestire il POST del form per la scelta del modello di CPE
+cpe_model_check:
+    pattern:  /
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Default:index }
+
+
+# route definita dentro simcallsForm.html.twig per gestire il POST del form per il setting delle sim calls
+simcalls:
+    pattern:  /Model/simcalls
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Simcalls:simcalls, filename: empty }
+
+# route definita dentro MultipointController per passare alla schermata single numbe
+singlenumber:
+    pattern:  /Model/singlenumber
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Singlenumber:index}
+
+# route definita dentro SimcalleController per passare alla schermata multipoint,
+multipoint:
+    pattern:  /Model/multipoint
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Multipoint:index}
+
+#route richiamata dal redirect dentro il defaultController dopo aver scelto il modello
+modelroute:
+    pattern:  /Model/{filename}
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Model:index, filename: empty }
+    
+
+# route definita dentro customerForm.html.twig per gestire il POST del form per il setting del customerID
+customerid_check:
+    pattern:  /Model/{filename}
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Model:index, filename: empty }
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<model_parameters>
+	<vendor>OneAccess</vendor>
+	<name>2b2v</name>
+	<sim_calls>
+		<value>2</value>
+		<value>4</value>
+	</sim_calls>
+	<port_details number="4">
+		<port name="5/0" type="BRI" PoBRI="false"/>
+		<port name="5/1" type="BRI" PoBRI="false"/>
+		<port name="5/2" type="POTS"/>
+		<port name="5/3" type="POTS"/>
+	</port_details>
+</model_parameters>
+

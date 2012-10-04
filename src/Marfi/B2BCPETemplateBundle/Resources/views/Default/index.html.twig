@@ -1,0 +1,20 @@
+{# qui si definisce come formattare il form con nome indicato in form_widget e con route che rimanda al controller definita in path #}
+
+
+    <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>B2B CPE Model Choise</title>
+		<link rel="stylesheet" href="/css/Style1.css" />
+	</head>
+  
+	<body>
+		<h2>B2B CPE Model Choise</h2>
+		<div class="wrap">
+			<form action="{{ path('cpe_model_check') }}" method="post" {{ form_enctype(model_form) }}>
+					{{ form_widget(model_form) }} 
+				<br>
+					<input type="submit" />
+			</form>
+		</div>
+
+    </body>

@@ -1,0 +1,17 @@
+MarfiTaskBundle:
+    resource: "@MarfiTaskBundle/Resources/config/routing.yml"
+    prefix:   /Form
+
+MarfiB2BCPETemplateBundle:
+    resource: "@MarfiB2BCPETemplateBundle/Resources/config/routing.yml"
+    prefix:   /B2B
+
+MarfiHelloBundle:
+    resource: "@MarfiHelloBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal

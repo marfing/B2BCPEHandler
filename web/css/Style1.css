@@ -1,0 +1,14 @@
+/* 
+    Document   : Style1
+    Created on : 11-giu-2012, 23.10.40
+    Author     : mfigus
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body { font-family: Verdana, sans-serif; }
+
+.wrap {
+    width: 600px;
+    margin: auto;
+}

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<customer_id value="text">
+	<model vendor="OneAccess" model="4b2v">
+		<sim_calls values="6,8"/>
+		<ports number_of_ports="6">
+			<port name="5/0" type="BRI" voice_enabled="boolean" multipoint="boolean" PoBRI="boolean">
+				<single_number enabled="boolean" cli="e164"/> <!--only one for every port can exist-->
+				<GNR enabled="boolean" root="e164">
+					<DID enabled="boolean" extensiondigits="digitNumbers" />
+				</GNR>
+				<incoming_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</incoming_prefix>
+				<outgoing_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</outgoing_prefix>
+			</port>
+			<port name="5/1" type="BRI" voice_enabled="boolean" multipoint="boolean" PoBRI="boolean">
+				<single_number enabled="boolean" cli="e164"/> <!--only one for every port can exist-->
+				<GNR enabled="boolean" root="e164">
+					<DID enabled="[yes|no]" extensiondigits="digitNumbers" />
+				</GNR>
+				<incoming_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</incoming_prefix>
+				<outgoing_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</outgoing_prefix>
+			</port>
+			<port name="5/2" type="BRI" voice_enabled="boolean" multipoint="boolean" PoBRI="boolean">
+				<single_number enabled="boolean" cli="e164"/> <!--only one for every port can exist-->
+				<GNR enabled="boolean" root="e164">
+					<DID enabled="[yes|no]" extensiondigits="digitNumbers" />
+				</GNR>
+				<incoming_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</incoming_prefix>
+				<outgoing_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</outgoing_prefix>
+			</port>
+			<port name="5/3" type="BRI" voice_enabled="boolean" multipoint="boolean" PoBRI="boolean" backup_enabled="boolean">
+				<single_number enabled="boolean" cli="e164"/> <!--only one for every port can exist-->
+				<GNR enabled="boolean" root="e164">
+					<DID enabled="[yes|no]" extensiondigits="digitNumbers" />
+				</GNR>
+				<incoming_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</incoming_prefix>
+				<outgoing_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</outgoing_prefix>
+			</port>
+			<port name="5/4" type="POTS" voice_enabled="boolean" multipoint="boolean">
+				<single_number enabled="boolean" cli="e164"/> <!--only one for every port can exist-->
+				<GNR enabled="boolean" root="e164">
+					<DID enabled="[yes|no]" extensiondigits="digitNumbers" />
+				</GNR>
+				<incoming_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</incoming_prefix>
+				<outgoing_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</outgoing_prefix>
+			</port>
+			<port name="5/5" type="POTS" voice_enabled="boolean" multipoint="boolean">
+				<single_number enabled="boolean" cli="e164"/> <!--only one for every port can exist-->
+				<GNR enabled="boolean" root="e164">
+					<DID enabled="[yes|no]" extensiondigits="digitNumbers" />
+				</GNR>
+				<incoming_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</incoming_prefix>
+				<outgoing_prefix enabled="boolean">
+					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+				</outgoing_prefix>
+			</port>
+		</ports>
+		<multinumbers enable="boolean" how_many="integer" >
+			<multinumber how_many_cli="integer"> <!--almeno due-->
+				<cli cli="e164"/>
+				<cli cli="e164"/>
+				<ports bond="boolean" how_many="integer"> <!--more than one only if bonding yes-->
+					<port name="5/0"/>
+					<port name="5/1"/>
+					<port name="5/2"/>
+				</ports>
+			</multinumber>
+		</multinumbers>
+		<cli_services>
+			<fax enabled="boolean" number_of_cli="value"> <!--only cli that do not have pos-->
+				<cli>value</clir> <!-- almeno uno se fax enabled -->
+			</fax>
+			<pos enabled="boolean" number_of_cli="value"> <!--only cli that do not have fax -->
+				<cli>value</cli> <!-- almeno uno se fax enabled -->
+			</pos>
+			<clir enabled="boolean" number_of_cli="value">
+				<cli>value</cli>
+			</clir>
+		</cli_services>
+	</model>
+<customer_id/>
