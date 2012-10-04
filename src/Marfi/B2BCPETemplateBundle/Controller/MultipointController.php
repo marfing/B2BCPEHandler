@@ -58,13 +58,13 @@ class MultipointController extends Controller
 					$this->userXMLModel->setMultipointBRIports($data['multipoint']);
 					$session=$this->get('session');
 					$session->set('userxml',  $this->userXMLModel );
-					$nextURL = $this->generateUrl('singlenumber', array('filename' => 'singlenumber'));
-					echo "<h2 style=\"color:red\">Summary</h2>";
-					$responsepage = "<p><form method=\"link\" action=\"".$nextURL. "\"><input type=\"submit\" value=\" Next\"></form></p>";
+					$nextURL = $this->generateUrl('newpui', array('filename' => 'newpui'));
+					echo "<div class=\"wrap\"><h2 style=\"color:red\">Summary</h2>";
+					$responsepage = "<p><form method=\"link\" action=\"".$nextURL. "\"><input type=\"submit\" value=\" Next\"></form></p></div>";
 					$this->userXMLModel->printUserXML();
 					return new Response($responsepage);
-				} else {
-					$this->userXMLModel->printUserXML();
+				} else { // GET
+					//$this->userXMLModel->printUserXML();
 					return $this->render('MarfiB2BCPETemplateBundle:Default:multipointForm.html.twig', 
 										array('multipoint_form' => $form->createView(),));
 				}

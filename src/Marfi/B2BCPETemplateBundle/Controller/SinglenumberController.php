@@ -24,7 +24,7 @@ class SinglenumberController extends Controller
 						->add('singleNumber','text',array('label' => 'Insert PUI number',
 																		'required' => true))
 						->add('bind','checkbox',array('label' => 'Bonding aggregation',
-																	'required' => true));
+																	'required' => false));
 		foreach ($xmlUser->getPortNamesArray() as $value){
 			$checkBoxName = $value;
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 
@@ -43,6 +43,7 @@ class SinglenumberController extends Controller
 			$form->bindRequest($request);
 			$portError = false;
 			$portErrorList;
+			$task->printData();
 			foreach($task->getPortList() as $port){
 				if(!$xmlUser->setSingleNumber($task->getSingleNumber(),$port)){
 					$portError = true;

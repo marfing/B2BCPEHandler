@@ -23,6 +23,11 @@ multipoint:
     pattern:  /Model/multipoint
     defaults: { _controller: MarfiB2BCPETemplateBundle:Multipoint:index}
 
+# route definita dentro MultipointController per passare alla schermata single numbe
+newpui:
+    pattern:  /Model/newpui
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Newpui:index}
+
 #route richiamata dal redirect dentro il defaultController dopo aver scelto il modello
 modelroute:
     pattern:  /Model/{filename}

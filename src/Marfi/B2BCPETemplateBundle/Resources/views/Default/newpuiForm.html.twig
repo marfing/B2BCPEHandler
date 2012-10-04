@@ -1,0 +1,22 @@
+{# qui si definisce come formattare il form con nome indicato in form_widget e con route che rimanda al controller definita in path #}
+
+
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>PUI configuration</title>
+		<link rel="stylesheet" href="/css/Style1.css" />
+	</head>
+  
+	<body>
+		<div class="wrap">
+			<h2>PUI configuration</h2>
+			<h4>Please choose the PUI to be configured on customer's CPE</h4>
+			<form action="{{ path('newpui') }}" method="post" {{ form_enctype(newpui_form) }}>
+					{{ form_widget(newpui_form) }} 
+				<br>
+					<input type="submit" />
+			</form>
+		</div>
+
+    </body>
+{# empty Twig template #}

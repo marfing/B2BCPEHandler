@@ -41,7 +41,6 @@ class DefaultController extends Controller
 				$this->session->set('filename',  $this->selectedModelFileName );
 				return $this->redirect($this->generateUrl('modelroute', array('filename' => $this->selectedModelFileName)));
 			} else {
-				echo "<h1 style=\" font-family: arial \">B2B CPE Model List</h1>";
 				return $this->render('MarfiB2BCPETemplateBundle:Default:index.html.twig', 
 								array('model_form' => $this->cpeListForm->getForm()->createView(),));
 			}
