@@ -6,6 +6,7 @@ namespace Marfi\B2BCPETemplateBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Marfi\B2BCPETemplateBundle\XMLHandlers\B2BCpeModelXmlHandler;
 use Marfi\B2BCPETemplateBundle\XMLHandlers\userXML;
+use Marfi\B2BCPETemplateBundle\Entity\MultipointTask;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,33 +42,35 @@ class MultipointController extends Controller
 
 			if($this->xmlHandler->hasBRIPorts()){
 				$data = array('multipointForm' => 'Set multipoint ports');
-				$form = $this->createFormBuilder($data);
+				$task = new MultipointTask();
+	
+				$form = $this->createFormBuilder($task);
 				foreach ($this->xmlHandler->getBRIportsNameArray() as $value){
 						$checkBoxName = $value;
 						$checkList['choices'][$checkBoxName] = $checkBoxName; 
 				}
 				$checkList['expanded'] = true;
 				$checkList['multiple'] = true;
-				$checkList['label'] = 'Set point to multipoint on ports: ';
+				$checkList['label'] = 'Set (if needed) point to multipoint on ports: ';
 				$checkList['required'] = true;
-				$form = $form->add('multipoint', 'choice', $checkList)
+				$form = $form->add('portList', 'choice', $checkList)
 										->getForm();
 				if($request->getMethod()=='POST'){
 					$form->bindRequest($request);
-					$data = $form->getData();
-					$this->userXMLModel->setMultipointBRIports($data['multipoint']);
-					$session=$this->get('session');
-					$session->set('userxml',  $this->userXMLModel );
-					$nextURL = $this->generateUrl('newpui', array('filename' => 'newpui'));
-					echo "<div class=\"wrap\"><h2 style=\"color:red\">Summary</h2>";
-					$responsepage = "<p><form method=\"link\" action=\"".$nextURL. "\"><input type=\"submit\" value=\" Next\"></form></p></div>";
-					$this->userXMLModel->printUserXML();
-					return new Response($responsepage);
-				} else { // GET
-					//$this->userXMLModel->printUserXML();
+					if($form->isValid()){
+						$this->userXMLModel->setMultipointBRIports($task->getPortList());
+
+						$session=$this->get('session');
+						$session->set('userxml',  $this->userXMLModel );
+						$nextURL = $this->generateUrl('newpui', array('filename' => 'newpui'));
+						echo "<div class=\"wrap\"><h2 style=\"color:red\">Summary</h2>";
+						$responsepage = "<p><form method=\"link\" action=\"".$nextURL. "\"><input type=\"submit\" value=\" Next\"></form></p></div>";
+						$this->userXMLModel->printUserXML();
+						return new Response($responsepage);
+					}
+				}  // GET
 					return $this->render('MarfiB2BCPETemplateBundle:Default:multipointForm.html.twig', 
 										array('multipoint_form' => $form->createView(),));
-				}
 			} else { //no BRI ports in this model
 					$this->userXMLModel->printUserXML();
 					$nextURL = $this->generateUrl('singlenumber', array('filename' => 'singlenumber'));

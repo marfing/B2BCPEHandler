@@ -26,6 +26,12 @@ class SingleNumberTask{
 			if(!preg_match("/^[0]\d{3,12}$/",$this->singleNumber)) return false;
 			return true;
 		}
+		public function isBindOk(){
+			echo "isBindOk: " .$this->bind;
+			if($this->bind && (count($this->portListNames < 2)))
+				return false;
+			return true;
+		}
 	}
 
 ?>

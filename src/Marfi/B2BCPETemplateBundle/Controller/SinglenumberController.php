@@ -17,7 +17,6 @@ class SinglenumberController extends Controller
 	public function indexAction(Request $request)
 	{
 		$session = $this->get('session');		
-		
 		$xmlUser = $session->get('userxml');
 		
 		$task = new SingleNumberTask();
