@@ -41,7 +41,6 @@ class MultipointController extends Controller
 			foreach ($modelPortsArray as $port){ $this->userXMLModel->addModelPort($port); }
 
 			if($this->xmlHandler->hasBRIPorts()){
-				$data = array('multipointForm' => 'Set multipoint ports');
 				$task = new MultipointTask();
 	
 				$form = $this->createFormBuilder($task);

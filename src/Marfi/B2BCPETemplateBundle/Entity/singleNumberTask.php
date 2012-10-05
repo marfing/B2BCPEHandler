@@ -27,8 +27,8 @@ class SingleNumberTask{
 			return true;
 		}
 		public function isBindOk(){
-			echo "isBindOk: " .$this->bind;
-			if($this->bind && (count($this->portListNames < 2)))
+			echo "isBindOk - portList: " .count($this->portListNames);
+			if($this->bind && (count($this->portListNames) < 2))
 				return false;
 			return true;
 		}
