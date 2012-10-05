@@ -28,6 +28,10 @@ newpui:
     pattern:  /Model/newpui
     defaults: { _controller: MarfiB2BCPETemplateBundle:Newpui:index}
 
+fax:
+    pattern:  /Model/fax
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Fax:index}
+
 #route richiamata dal redirect dentro il defaultController dopo aver scelto il modello
 modelroute:
     pattern:  /Model/{filename}

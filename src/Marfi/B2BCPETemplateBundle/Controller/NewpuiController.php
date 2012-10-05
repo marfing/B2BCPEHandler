@@ -17,21 +17,39 @@ class NewpuiController extends Controller
 	{
 		$session = $this->get('session');		
 		$xmlUser = $session->get('userxml');
+		
 		$task = new newPuiTask();
 		
-		$checkList['choices']['GNR']='gnr';
-		$checkList['choices']['SingleNumber']='singlenumber';
-		$checkList['choices']['MultiNumber']='multinumber';
+		$checkList['choices']['gnr']='GNR';
+		$checkList['choices']['singlenumber']='Single Number';
+		$checkList['choices']['multinumber']='Multi Number';
 		$checkList['expanded'] = true;
 		$checkList['multiple'] = false;
 		$checkList['required'] = true;
 		$checkList['label'] = 'PUI Types';
 		
-		$form = $this->createFormBuilder($task)	->add('puitype','choice',$checkList)->getForm();
+		$form = $this->createFormBuilder($task)	->add('puiType','choice',$checkList);
+		$form = $form->getForm();
 
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
-/*			$portError = false;
+
+			switch ($task->getPuiType()) {
+				case 'bri':
+					echo "TO BE DONE!!!";
+					return $this->redirect($this->generateUrl('gnr', array('filename' => 'gnr')));
+					break;
+				case 'singlenumber':
+					return $this->redirect($this->generateUrl('singlenumber', array('filename' => 'singlenumber')));
+					break;
+				case 'multinumber':
+					echo "TO BE DONE!!!";
+					return $this->redirect($this->generateUrl('multinumber', array('filename' => 'multinumber')));
+					break;
+			}
+			
+			
+			/*			$portError = false;
 			$portErrorList;
 			$task->printData();
 			foreach($task->getPortList() as $port){
@@ -65,13 +83,8 @@ class newPuiTask{
 		protected $puitype;
 		
 		public function getPuiType(){ return $this->puitype; }
-		public function setPuiType($puiTypeList){ 	$this->puitype = $puiTypeList; }
-		public function printData(){
-			echo "<table border=\"1\"><tr><td>PuiTypeList: </td><td>" ;
-				foreach ($this->puitype as $type) 
-					echo $type . "<br>";
-			echo "</td></tr></table>";	
-		}
+		public function setPuiType($puiType){ $this->puitype = $puiType; }
+		public function printData(){ echo "<table border=\"1\"><tr><td>PuiType: </td><td>" . $this->puitype. "</td></tr></table>" ; }
 }
 
 

@@ -1,0 +1,8 @@
+# Marfi/B2BCPETemplateBundle/Resources/config/validation.yml
+Marfi\B2BCPETemplateBundle\Entity\SingleNumberTask:
+      properties:
+        portListNames:
+            - NotBlank: {message: "You must select at least one port"} 
+      getters:
+        E164:
+          - "True": {message: "Not a valid E164 number, please insert again PUI number"}

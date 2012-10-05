@@ -13,9 +13,9 @@
 			<h4>Please choose the PUI to be configured on customer's CPE</h4>
 			<form action="{{ path('newpui') }}" method="post" {{ form_enctype(newpui_form) }}>
 					{{ form_widget(newpui_form) }} 
-				<br>
-					<input type="submit" />
+					<br><input type="submit" value="Configure PUI"/>
 			</form>
+			<form method="link" action="{{ path('fax') }} "><input type="submit" value=" No more PUI configuration"></form>
 		</div>
 
     </body>
