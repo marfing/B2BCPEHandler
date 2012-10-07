@@ -39,6 +39,8 @@ class MultipointController extends Controller
 			$this->userXMLModel = new userXML($this->vendor, $this->model, $this->simcalls, $this->customerId);
 			$modelPortsArray = $this->xmlHandler->getModelPortArray();
 			foreach ($modelPortsArray as $port){ $this->userXMLModel->addModelPort($port); }
+			$session=$this->get('session');
+			$session->set('userxml',  $this->userXMLModel );
 
 			if($this->xmlHandler->hasBRIPorts()){
 				$task = new MultipointTask();

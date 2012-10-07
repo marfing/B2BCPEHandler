@@ -18,6 +18,9 @@ class NewpuiController extends Controller
 		$session = $this->get('session');		
 		$xmlUser = $session->get('userxml');
 		
+		echo "<div class=\"summary\"><h2 style=\"color:red\">Summary</h2>";
+		$xmlUser->printUserXML();
+		echo "</div>";
 		$task = new newPuiTask();
 		
 		$checkList['choices']['gnr']='GNR';
@@ -47,35 +50,11 @@ class NewpuiController extends Controller
 					return $this->redirect($this->generateUrl('multinumber', array('filename' => 'multinumber')));
 					break;
 			}
-			
-			
-			/*			$portError = false;
-			$portErrorList;
-			$task->printData();
-			foreach($task->getPortList() as $port){
-				if(!$xmlUser->setSingleNumber($task->getSingleNumber(),$port)){
-					$portError = true;
-					$portErrorList[] = $port;
-				}
-			}
-			if($portError){
-				$errorMessage = "<h2>There ports already have single number or CLI is not valid</h2><table border=\"1\"><tr>";
-				foreach ($portErrorList as $port) 
-					$errorMessage =  "<td>" . $port . "</td>";
-				$errorMessage = $errorMessage . "</tr></table>";
-				$session->getFlashBag()->add('error', $errorMessage);
-				return $this->redirect($this->generateUrl('singlenumber', array('filename' => 'singlenumber')));
-			} else {
-				// TO DO - andare sull pagina che chiede se si vuole inserire una nuova PUI di tipo Single, Multi o GNR
-			}*/
 			$responsepage = $task->printData();
 			return new Response($responsepage);
-		} else { //GET
-			//$this->userXMLModel->printUserXML();
+		} else  //GET
 			return $this->render('MarfiB2BCPETemplateBundle:Default:newpuiForm.html.twig', 
 								array('newpui_form' => $form->createView(),));
-		}
-	//	return new Response("<h2>single number</h2>");
 	}
  }
 

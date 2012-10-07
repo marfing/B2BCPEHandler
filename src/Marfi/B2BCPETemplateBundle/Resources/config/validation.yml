@@ -7,8 +7,10 @@ Marfi\B2BCPETemplateBundle\Entity\SingleNumberTask:
         E164:
           - "True": {message: "Not a valid E164 number, please insert again PUI number"}
         BindOk:
-          - "True": {message: "If you select bonding aggregation, at least two ports must be selected"}
-
+          - "True": {message: "If you select bonding aggregation, at least two ports must be selected - If you don't select bonding aggregation, only one port must be selected"}
+        SingleNumberUnused:
+          - "True": {message: "Single number already configured, you cannot use it!!!"}
+        
 
 Marfi\B2BCPETemplateBundle\Entity\MultipointTask:
       properties:

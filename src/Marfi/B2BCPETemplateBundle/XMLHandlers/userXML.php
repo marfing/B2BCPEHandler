@@ -35,7 +35,7 @@ class userXML
 			echo "<h2 style=\"color:red\">ERROR - trying to configure multimode without any BRI port available!!</h2>";
 	}
 	public function printUserXML(){
-		echo "<table border=\"1\"><tr><td>CustomerID</td><td> " .$this->customerId. "</td></tr>";
+		echo "<div class=\"summary\"><table border=\"1\" ><tr><td>CustomerID</td><td> " .$this->customerId. "</td></tr>";
 		echo "<tr><td>Vendor</td><td> "  .$this->vendorName. "</td></tr>";
 		echo "<tr><td>Model</td><td> "  .$this->modelName. "</td></tr>";
 		echo "<tr><td>Sim calls</td><td> "  .$this->simCallsNumber. "</td></tr>";
@@ -43,10 +43,13 @@ class userXML
 		if($this->portsHandler->hasPorts()){
 			echo $this->portsHandler->printPorts(). "<br>";
 		}
+		echo "</div>";
 		//TO DO - aggiungere gli altri elementi man mano che li si crea
 	}
-	public function setSingleNumber($cliString, $portName){return $this->portsHandler->setSingleNumber($cliString, $portName);}
+	public function setSingleNumber($cliString, $portName){$this->portsHandler->setSingleNumber($cliString, $portName);}
+	public function getSingleNumbersArray(){return $this->portsHandler->getSingleNumbersArray();}
 	public function getPortNamesArray(){ return $this->portsHandler->getPortNamesArray();}
+	public function getPortNamesArrayWithoutSingleNumber(){ 	return $this->portsHandler->getPortNamesArrayWithoutSingleNumber();}
 }
 
 
@@ -93,22 +96,41 @@ class userXMLportsHandler
 				if($port->hasPoBRI()) echo "<td>Available</td>";
 				else echo "<td>-</td>";
 			}
+			echo "</tr><tr><td>SingleNumber</td>";
+			foreach($this->portsArray as $port){
+				if($port->hasSingleNumber()) echo "<td>" .$port->getSingleNumber(). "</td>";
+				else echo "<td>-</td>";
+			}
 			echo "</tr></table>";
 		} else echo "<h2 style=\"color:red\">ERROR - Trying to print ports that does not exist!!!!</h2>";
 	}
 	public function setSingleNumber($cliString, $portName){
 		foreach($this->portsArray as $port){
 			if($port->isMyName($portName) && !$port->hasSingleNumber()) {
-				if(!$port->setSingleNumber($cliString)) return false;
-			} else return false;
+				$port->setSingleNumber($cliString);
+			} 
 		}	
-		return true;	
+	}
+	public function getSingleNumbersArray(){
+		$singleNumbersArray[]='empty';
+		foreach($this->portsArray as $port)
+			if($port->hasSingleNumber())
+				$singleNumbersArray[] = $port->getSingleNumber();
+		return $singleNumbersArray;
 	}
 	public function getPortNamesArray(){
 		$portNamesArray;
 		foreach ($this->portsArray as $port) $portNamesArray[] = $port->getName();
 		return $portNamesArray;
 	}
+	public function getPortNamesArrayWithoutSingleNumber(){
+		foreach ($this->portsArray as $port){
+			if(!$port->hasSingleNumber())
+				$portNamesArray[] = $port->getName();
+		}
+		return $portNamesArray;
+	}
+	
 }
 
 
@@ -117,7 +139,7 @@ class userXMLport
 	protected $name = 'empty';
 	protected $typeString;
 	protected $pobri = false;
-	protected $singleNumber;
+	protected $singleNumber ='empty';
 	protected $hasSingleNumber = false;
 	protected $gnrContainer;
 	protected $incomingPrefixRule;
@@ -157,11 +179,11 @@ class userXMLport
 	public function hasPoBRI(){return $this->pobri;}
 	public function isBRI(){ return ($this->typeString == 'BRI'); }
 	public function setSingleNumber($cliString){
-		if($this->singleNumber->setCli($cliString))
-			return $this->hasSingleNUmber = true;
-		else
-			return false;
+		//echo "<br>userXMLport::setSingleNumber: " .$cliString. " port: " .$this->name ;
+		$this->singleNumber->setCli($cliString);
+		$this->hasSingleNumber = true;
 	}
+	public function getSingleNumber(){return $this->singleNumber->getCli();}
 	public function hasSingleNumber(){	return $this->hasSingleNumber;}
 }
 
@@ -207,18 +229,8 @@ class singleNumber
 	protected $cli = 'empty';
 	
 	public function setCli($cliString){
-		if($this->check_cli($cliString)){
 			$this->cli = $cliString;
 			$this->enabled = true;
-			return true;
-		}
-		else echo "<h2>WRONG CLI!!!!</h2>";
-		return false;
-	}
-	private function check_cli($str){   /// not standards compliant i.e won't meet E.164 etc for validating international phone numbers
-        trim($str);
-        if(!preg_match("/[^+()[:digit:][:space:]]/",$str)) return false;
-        return true;
 	}
 	public function isEnabled(){ 	return $this->enabled;	}
 	public function getCli(){ return (string)$this->cli; }

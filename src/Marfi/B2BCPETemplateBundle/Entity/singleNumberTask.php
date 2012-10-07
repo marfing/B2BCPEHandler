@@ -2,10 +2,16 @@
 
 namespace Marfi\B2BCPETemplateBundle\Entity;
 
+use Marfi\B2BCPETemplateBundle\XMLHandlers\userXML;
+
+
 class SingleNumberTask{
 		protected $singleNumber;
 		protected $portListNames;
-		protected $bind;
+		protected $bind = false;
+		protected $usedSingleNumbersArray;
+		
+		public function __construct($usedSingleNumbersArray){$this->usedSingleNumbersArray = $usedSingleNumbersArray;	}
 		
 		public function getSingleNumber(){ 	return $this->singleNumber; }
 		public function setSingleNumber($singleNumber){ $this->singleNumber = $singleNumber; 	}
@@ -27,9 +33,14 @@ class SingleNumberTask{
 			return true;
 		}
 		public function isBindOk(){
-			echo "isBindOk - portList: " .count($this->portListNames);
-			if($this->bind && (count($this->portListNames) < 2))
+			if( ($this->bind && (count($this->portListNames) < 2)) || (!$this->bind && (count($this->portListNames))>1))
 				return false;
+			return true;
+		}
+		public function isSingleNumberUnused(){
+			foreach($this->usedSingleNumbersArray as $usedNumber)
+				if($usedNumber == $this->singleNumber)
+					return false;
 			return true;
 		}
 	}

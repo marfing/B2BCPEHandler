@@ -14,12 +14,13 @@ use Symfony\Component\HttpFoundation\Session;
 class SinglenumberController extends Controller
 {
 	
+	protected $xmlUser;
+	
 	public function indexAction(Request $request)
 	{
 		$session = $this->get('session');		
-		$xmlUser = $session->get('userxml');
-		
-		$task = new SingleNumberTask();
+		$this->xmlUser = 	$session->get('userxml');
+		$task = new SingleNumberTask($this->xmlUser->getSingleNumbersArray());
 		$form = $this->createFormBuilder($task)
 						->add('singleNumber','text',array('label' => 'Insert PUI number',
 																		'required' => true,
@@ -27,7 +28,7 @@ class SinglenumberController extends Controller
 						->add('bind','checkbox',array('label' => 'Bonding aggregation',
 																	'required' => false,
 																	'error_bubbling'=>true));
-		foreach ($xmlUser->getPortNamesArray() as $value){
+		foreach ($this->xmlUser->getPortNamesArrayWithoutSingleNumber() as $value){	
 			$checkBoxName = $value;
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 
 		}
@@ -39,15 +40,14 @@ class SinglenumberController extends Controller
 		$form = $form->add('portList', 'choice', $checkList)
 								->getForm();
 		
-		// display errors
-		foreach ($session->getFlashBag()->get('error', array()) as $message) {
-			echo "<div class='flash-error'>$message</div>";
-		}
-		
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
-				return new Response('Form valid');
+				foreach ($task->getPortList() as $port){
+					$this->xmlUser->setSingleNumber($task->getSingleNumber(), $port);
+				}
+				$session->set('userxml',  $this->xmlUser );
+				return $this->redirect($this->generateUrl('newpui', array('filename' => 'nextpui')));
 			} 
 		}
 		return $this->render('MarfiB2BCPETemplateBundle:Default:singleNumber.html.twig', 

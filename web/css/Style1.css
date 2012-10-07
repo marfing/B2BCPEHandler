@@ -11,4 +11,11 @@ body { font-family: Verdana, sans-serif; }
 .wrap {
     width: 600px;
     margin: auto;
+	font-size: 14px;
+}
+
+.summary {
+    width: 600px;
+    margin: auto;
+	font-size: 8px;
 }
