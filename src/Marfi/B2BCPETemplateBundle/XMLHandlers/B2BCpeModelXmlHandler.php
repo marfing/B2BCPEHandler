@@ -146,7 +146,6 @@ class B2BCpeModelXmlHandler
 	}
 }
 
-
 class modelPort
 {
 	protected $name;
@@ -182,7 +181,6 @@ class modelPort
 	public function isPOTS(){ 	if($this->type->isPOTS())	return true; else return false; }
 	public function isPRI(){ if($this->type->isPRI())	return true; else return false; }
 }
-
 
 class portType {
 

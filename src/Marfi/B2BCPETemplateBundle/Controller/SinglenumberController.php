@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Session;
 
 class SinglenumberController extends Controller
 {
-	
 	protected $xmlUser;
 	
 	public function indexAction(Request $request)
@@ -54,7 +53,6 @@ class SinglenumberController extends Controller
 								array('singlenumber_form' => $form->createView(),));
 	}
 }
-
 
 
 ?>

@@ -52,7 +52,6 @@ class userXML
 	public function getPortNamesArrayWithoutSingleNumber(){ 	return $this->portsHandler->getPortNamesArrayWithoutSingleNumber();}
 }
 
-
 class userXMLportsHandler
 {
 	protected $portsNumber = 0;
@@ -132,7 +131,6 @@ class userXMLportsHandler
 	}
 	
 }
-
 
 class userXMLport
 {

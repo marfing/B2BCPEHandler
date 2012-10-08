@@ -59,7 +59,6 @@ class B2bCpeListXmlHandler
 	public function fileExist(){return $this->fileExist;}
 }
 
-
 class B2bCpeVendor
 {
 	protected $name = "empty";
@@ -99,7 +98,6 @@ class B2bCpeVendor
 	}
 }
 
-
 class B2BCpeModel
 {
 	protected $name;
@@ -118,4 +116,4 @@ class B2BCpeModel
 	}
 }
 
-	?>
+?>

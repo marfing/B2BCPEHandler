@@ -5,7 +5,7 @@ Marfi\B2BCPETemplateBundle\Entity\SingleNumberTask:
             - NotBlank: {message: "You must select at least one port"} 
       getters:
         E164:
-          - "True": {message: "Not a valid E164 number, please insert again PUI number"}
+          - "True": {message: "Not a valid E164 number, please insert again valid Italian PUI number. Format: 0<local_area><customer_number>"}
         BindOk:
           - "True": {message: "If you select bonding aggregation, at least two ports must be selected - If you don't select bonding aggregation, only one port must be selected"}
         SingleNumberUnused:
