@@ -1,6 +1,4 @@
 <?php
-
-
 namespace Marfi\B2BCPETemplateBundle\Entity;
 
 class GnrTask{
@@ -38,9 +36,5 @@ class GnrTask{
 		return true;
 	}
 }
-
-
-
-
 
 ?>

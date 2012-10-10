@@ -17,48 +17,39 @@ class NewpuiController extends Controller
 	{
 		$session = $this->get('session');		
 		$xmlUser = $session->get('userxml');
+//		$xmlUser->printUserXML();
 		
-		echo "<div class=\"summary\"><h2 style=\"color:red\">Summary</h2>";
-		$xmlUser->printUserXML();
-		echo "</div>";
 		$task = new newPuiTask();
-		
 		$checkList['choices']['singlenumber']='Single Number';
 		if($xmlUser->hasBRIPorts()){
 			$checkList['choices']['multinumber']='Multi Number';
-			if($xmlUser->getNumberOfBRIPorts() > 1)
+			if($xmlUser->getNumberOfBRIPorts() > 1 && !$xmlUser->hasGnr())
 				$checkList['choices']['gnr']='GNR';
 		}
-
-
 		$checkList['expanded'] = true;
 		$checkList['multiple'] = false;
 		$checkList['required'] = true;
 		$checkList['label'] = 'PUI Types';
-		
 		$form = $this->createFormBuilder($task)	->add('puiType','choice',$checkList);
 		$form = $form->getForm();
-
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
-
 			switch ($task->getPuiType()) {
-				case 'gnr':
-					return $this->redirect($this->generateUrl('gnr', array('filename' => 'gnr')));
-					break;
-				case 'singlenumber':
-					return $this->redirect($this->generateUrl('singlenumber', array('filename' => 'singlenumber')));
-					break;
-				case 'multinumber':
-					echo "TO BE DONE!!!";
-					return $this->redirect($this->generateUrl('multinumber', array('filename' => 'multinumber')));
-					break;
+				case 'gnr': return $this->redirect($this->generateUrl('gnr', array('filename' => 'gnr'))); break;
+				case 'singlenumber': return $this->redirect($this->generateUrl('singlenumber', array('filename' => 'singlenumber'))); break;
+				case 'multinumber': 	return $this->redirect($this->generateUrl('multinumber', array('filename' => 'multinumber'))); break;
 			}
 			$responsepage = $task->printData();
 			return new Response($responsepage);
 		} else  //GET
-			return $this->render('MarfiB2BCPETemplateBundle:Default:newpuiForm.html.twig', 
-								array('newpui_form' => $form->createView(),));
+			return $this->render('MarfiB2BCPETemplateBundle:Default:newpuiForm.html.twig', array('newpui_form' => $form->createView(),
+																															'summary'=>$xmlUser));
+	}
+	
+	public function summaryAction(){
+		$session = $this->get('session');		
+		$xmlUser = 	$session->get('userxml');
+		return $this->render('MarfiB2BCPETemplateBundle:Default:newpuiForm.html.twig', array('summary'=>$xmlUser->printUserXMLOutside()) );
 	}
  }
 

@@ -8,10 +8,13 @@
 	</head>
   
 	<body>
+		<div class="summary">
+			{{summary.printUserXML}}
+		</div>
 		<div class="wrap">
 			<h2>PUI configuration</h2>
-			<p>For Multinumber you need at least one BRI port</p>
-			<p>Form GNR you need at least 3 BRI ports</p>
+			For Multinumber you need at least one BRI port
+			Form GNR you need at least 3 BRI ports
 			<h4>Please choose the PUI to be configured on customer's CPE</h4>
 			<form action="{{ path('newpui') }}" method="post" {{ form_enctype(newpui_form) }}>
 					{{ form_widget(newpui_form) }} 

@@ -51,16 +51,14 @@ class GnrController extends Controller
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
-				return new Response();
-		//		foreach ($task->getPortList() as $port){
-		//			$this->xmlUser->setSingleNumber($task->getSingleNumber(), $port);
-		//		}
+				foreach ($task->getPortList() as $port){
+					$this->xmlUser->setGnr($task->getRootNumber(), $task->getDid(), $task->getGnrExtension(), $port);
+				}
 				$session->set('userxml',  $this->xmlUser );
 				return $this->redirect($this->generateUrl('newpui', array('filename' => 'nextpui')));
 			} 
-			return $this->render('MarfiB2BCPETemplateBundle:Default:gnr.html.twig', 
-								array('gnr_form' => $form->createView(),));
 		}
+	return $this->render('MarfiB2BCPETemplateBundle:Default:gnr.html.twig', array('gnr_form' => $form->createView(),));
 	}
 }
 

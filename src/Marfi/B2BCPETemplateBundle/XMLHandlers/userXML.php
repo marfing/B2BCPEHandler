@@ -14,6 +14,7 @@ class userXML
 	protected $multinumbersArray;
 	protected $cliServices;
 	protected $customerId;
+	protected $hasGnr = false;
 	
 	public function __construct($vendor, $model, $simcalls, $customerid){
 		$this->vendorName = $vendor;
@@ -34,8 +35,20 @@ class userXML
 		else 
 			echo "<h2 style=\"color:red\">ERROR - trying to configure multimode without any BRI port available!!</h2>";
 	}
+	public function setSingleNumber($cliString, $portName){$this->portsHandler->setSingleNumber($cliString, $portName);}
+	public function getSingleNumbersArray(){return $this->portsHandler->getSingleNumbersArray();}
+	public function setGnr($root, $did, $digits, $portName){
+		$this->hasGnr = true;
+		$this->portsHandler->setGnr($root, $did, $digits, $portName);
+	}
+	public function hasGnr(){return $this->hasGnr;}
+	public function getPortNamesArray(){ return $this->portsHandler->getPortNamesArray();}
+	public function getPortNamesArrayWithoutSingleNumber(){ 	return $this->portsHandler->getPortNamesArrayWithoutSingleNumber();}
+	public function getBRIPortNamesArray(){ return $this->portsHandler->getBRIPortNamesArray();}
+	public function hasBRIPorts(){return $this->portsHandler->hasBRIPorts();}
+	public function getNumberOfBRIPorts(){return $this->portsHandler->getNumberOfBRIPorts();}
 	public function printUserXML(){
-		echo "<div class=\"summary\"><table border=\"1\" ><tr><td>CustomerID</td><td> " .$this->customerId. "</td></tr>";
+		echo "<table border=\"1\" ><tr><td>CustomerID</td><td> " .$this->customerId. "</td></tr>";
 		echo "<tr><td>Vendor</td><td> "  .$this->vendorName. "</td></tr>";
 		echo "<tr><td>Model</td><td> "  .$this->modelName. "</td></tr>";
 		echo "<tr><td>Sim calls</td><td> "  .$this->simCallsNumber. "</td></tr>";
@@ -43,16 +56,9 @@ class userXML
 		if($this->portsHandler->hasPorts()){
 			echo $this->portsHandler->printPorts(). "<br>";
 		}
-		echo "</div>";
 		//TO DO - aggiungere gli altri elementi man mano che li si crea
 	}
-	public function setSingleNumber($cliString, $portName){$this->portsHandler->setSingleNumber($cliString, $portName);}
-	public function getSingleNumbersArray(){return $this->portsHandler->getSingleNumbersArray();}
-	public function getPortNamesArray(){ return $this->portsHandler->getPortNamesArray();}
-	public function getPortNamesArrayWithoutSingleNumber(){ 	return $this->portsHandler->getPortNamesArrayWithoutSingleNumber();}
-	public function getBRIPortNamesArray(){ return $this->portsHandler->getBRIPortNamesArray();}
-	public function hasBRIPorts(){return $this->portsHandler->hasBRIPorts();}
-	public function getNumberOfBRIPorts(){return $this->portsHandler->getNumberOfBRIPorts();}
+	public function printUserXMLOutside(){return $this->portsHandler->getPrintPorts();}
 }
 
 class userXMLportsHandler
@@ -110,8 +116,51 @@ class userXMLportsHandler
 				if($port->hasSingleNumber()) echo "<td>" .$port->getSingleNumber(). "</td>";
 				else echo "<td>-</td>";
 			}
+			echo "</tr><tr><td>Gnr</td>";
+			foreach($this->portsArray as $port){
+				if($port->hasGnr()) echo "<td><table border=\"1\">
+																<tr><td>root</td><td>" .$port->getGnrRoot(). "</td></tr>
+																<tr><td>did</td><td>" .(($port->hasGnrDid() ? "enabled" : "disabled")). "</td></tr>
+																<tr><td>digits</td><td>" .$port->getExtensionDigits(). "</td></tr></table>";
+				else echo "<td></td>";
+			}
 			echo "</tr></table>";
 		} else echo "<h2 style=\"color:red\">ERROR - Trying to print ports that does not exist!!!!</h2>";
+	}
+	public function getPrintPorts(){
+		if($this->portsNumber != 0){
+			$printed =  "<table border=\"2\"><tr><td>Ports</td></tr><tr><td>Name</td>";
+			foreach($this->portsArray as $port) 	$printed = $printed . "<td>" . $port->getName(). "</td>";
+			$printed = $printed .  "</tr><tr><td>Type</td>";
+			foreach($this->portsArray as $port) 	$printed = $printed .  "<td>" . $port->getTypeString(). "</td>";
+			$printed = $printed .  "</tr><tr><td>Mode</td>";
+			foreach($this->portsArray as $port){
+				if($port->isBRI())
+					if($port->isMultipoint()) $printed = $printed .  "<td>point-to-multipoint</td>";
+					else $printed = $printed .  "<td>point-to-point</td>";
+				else $printed = $printed .  "<td>-</td>";
+			}
+			$printed = $printed .  "</tr><tr><td>PoBRI</td>";
+			foreach($this->portsArray as $port){
+				if($port->hasPoBRI()) $printed = $printed .  "<td>Available</td>";
+				else $printed = $printed .  "<td>-</td>";
+			}
+			$printed = $printed .  "</tr><tr><td>SingleNumber</td>";
+			foreach($this->portsArray as $port){
+				if($port->hasSingleNumber()) $printed = $printed .  "<td>" .$port->getSingleNumber(). "</td>";
+				else $printed = $printed .  "<td>-</td>";
+			}
+			$printed = $printed .  "</tr><tr><td>Gnr</td>";
+			foreach($this->portsArray as $port){
+				if($port->hasGnr()) $printed = $printed .  "<td><table border=\"1\" class=\"gnr\">
+																<tr><td>root</td><td>" .$port->getGnrRoot(). "</td></tr>
+																<tr><td>did</td><td>" .(($port->hasGnrDid() ? "enabled" : "disabled")). "</td></tr>
+																<tr><td>digits</td><td>" .$port->getExtensionDigits(). "</td></tr></table>";
+				else $printed = $printed .  "<td></td>";
+			}
+			$printed = $printed .  "</tr></table>";
+		} else $printed = $printed .  "<h2 style=\"color:red\">ERROR - Trying to print ports that does not exist!!!!</h2>";
+		return $printed;
 	}
 	public function setSingleNumber($cliString, $portName){
 		foreach($this->portsArray as $port){
@@ -153,6 +202,14 @@ class userXMLportsHandler
 			if($port->isBRI()) $counter++;
 		return $counter;
 	}
+	public function setGnr($root, $did, $digits, $portName){
+		foreach($this->portsArray as $port){
+			if($port->isMyName($portName) && !$port->hasGnr()) {
+				$port->setGnr($root, $did, $digits);
+			} 
+		}	
+		
+	}
 }
 
 class userXMLport
@@ -162,7 +219,8 @@ class userXMLport
 	protected $pobri = false;
 	protected $singleNumber ='empty';
 	protected $hasSingleNumber = false;
-	protected $gnrContainer;
+	protected $gnr;
+	protected $hasGnr = false;
 	protected $incomingPrefixRule;
 	protected $outgoingPrefixRule;
 	protected $multipointMode = false;
@@ -184,7 +242,7 @@ class userXMLport
 		if($name == $this->name) return true;
 		else return false;
 	}
-	public function printPort(){
+/*	public function printPort(){
 		echo "Port name: " . $this->name. "<br>";
 		echo "Port type: " .$this->type->getTypeString(). "<br>";
 		echo "Port Mode: ";
@@ -193,8 +251,7 @@ class userXMLport
 		echo "Port PoBRI: ";
 		if($this->pobri) 	echo "enabled<br>";
 		else 	echo "disabled<br>";
-		// TO DO - aggiungere altri elementi man mano che li gestisco
-	}
+	}*/
 	public function getName(){ return $this->name; }
 	public function getTypeString(){return (string)$this->typeString;}
 	public function hasPoBRI(){return $this->pobri;}
@@ -206,6 +263,14 @@ class userXMLport
 	}
 	public function getSingleNumber(){return $this->singleNumber->getCli();}
 	public function hasSingleNumber(){	return $this->hasSingleNumber;}
+	public function setGnr($root, $did, $digits){
+		$this->gnr = new gnr($root, $did, $digits);
+		$this->hasGnr = true;
+	}
+	public function hasGnr(){return $this->hasGnr;}
+	public function getGnrRoot(){return $this->gnr->getRoot();}
+	public function hasGnrDid(){return $this->gnr->hasDid();}
+	public function getExtensionDigits(){return $this->gnr->getExtensionDigits();}
 }
 
 class prefixRule
@@ -257,6 +322,7 @@ class singleNumber
 	public function getCli(){ return (string)$this->cli; }
 }
 
+//TO DO -  non necessaria perchè si può avere un solo GNR per customer - da eliminare alla fine
 class gnrContainer
 {
 	protected $gnrArray;
@@ -276,7 +342,6 @@ class gnrContainer
 
 class gnr
 {
-	protected $enabled = false;  //TO DO - verificare se serve, perchè alla fine se esiste è per forza abilitato
 	protected $root;
 	protected $did = false;
 	protected $extensionDigits = 0;
