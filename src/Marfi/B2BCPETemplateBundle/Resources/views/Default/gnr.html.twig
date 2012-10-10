@@ -1,0 +1,20 @@
+{# qui si definisce come formattare il form con nome indicato in form_widget e con route che rimanda al controller definita in path #}
+
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>GNR configuration</title>
+		<link rel="stylesheet" href="/css/Style1.css" />
+	</head>
+  
+	<body>
+		<div class="wrap">
+			<h2>GNR configuration</h2>
+			<p>Max 3 digits extension</p>
+			<form action="{{ path('gnr') }}" method="post" {{ form_enctype(gnr_form) }}>
+					{{ form_widget(gnr_form) }}  {{ form_errors(gnr_form) }}
+				<br>
+					<input type="submit" />
+			</form>
+		</div>
+
+    </body>

@@ -3,8 +3,7 @@
 	<vendor>OneAccess</vendor>
 	<name>2b4v</name>
 	<sim_calls>
-		<value>6</value>
-		<value>8</value>
+		<value>4</value>
 	</sim_calls>
 	<port_details number="6">
 		<port name="5/0" type="BRI" PoBRI="false"/>

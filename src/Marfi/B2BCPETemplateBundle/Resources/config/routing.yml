@@ -28,6 +28,14 @@ newpui:
     pattern:  /Model/newpui
     defaults: { _controller: MarfiB2BCPETemplateBundle:Newpui:index}
 
+multinumber:
+    pattern:  /Model/multinumber
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Multinumber:index}
+
+gnr:
+    pattern:  /Model/gnr
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Gnr:index}
+
 fax:
     pattern:  /Model/fax
     defaults: { _controller: MarfiB2BCPETemplateBundle:Fax:index}

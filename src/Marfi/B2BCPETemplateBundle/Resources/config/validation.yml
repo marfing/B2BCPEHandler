@@ -1,4 +1,5 @@
 # Marfi/B2BCPETemplateBundle/Resources/config/validation.yml
+
 Marfi\B2BCPETemplateBundle\Entity\SingleNumberTask:
       properties:
         portListNames:
@@ -11,6 +12,28 @@ Marfi\B2BCPETemplateBundle\Entity\SingleNumberTask:
         SingleNumberUnused:
           - "True": {message: "Single number already configured, you cannot use it!!!"}
         
+
+Marfi\B2BCPETemplateBundle\Entity\GnrTask:
+      properties:
+        portListNames:
+            - NotBlank: {message: "You must select at least one port"} 
+      getters:
+        RootNumberValid:
+          - "True": {message: "Not a valid root number, please insert again valid Italian PUI number min 5 digits max 11 digits. Format: 0<local_area><customer_root>"}
+        BindOk:
+          - "True": {message: "If you select bonding aggregation, at least two ports must be selected - If you don't select bonding aggregation, only one port must be selected"}
+        DidOk:
+          - "True": {message: "If you select DID, you must set digits extension - If you don't select DID, don't insert any digit extension"}
+
+Marfi\B2BCPETemplateBundle\Entity\MultinumberTask:
+      properties:
+        portListNames:
+            - NotBlank: {message: "You must select at least one port"} 
+      getters:
+        NumberLimitOk:
+          - "True": {message: "You cannot configure more than 6 PUIs for every multinumbers packet!!"}
+        PacketLimitOk:
+          - "True": {message: "If you select bonding aggregation, at least two ports must be selected - If you don't select bonding aggregation, only one port must be selected"}
 
 Marfi\B2BCPETemplateBundle\Entity\MultipointTask:
       properties:

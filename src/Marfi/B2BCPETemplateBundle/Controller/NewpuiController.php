@@ -23,9 +23,14 @@ class NewpuiController extends Controller
 		echo "</div>";
 		$task = new newPuiTask();
 		
-		$checkList['choices']['gnr']='GNR';
 		$checkList['choices']['singlenumber']='Single Number';
-		$checkList['choices']['multinumber']='Multi Number';
+		if($xmlUser->hasBRIPorts()){
+			$checkList['choices']['multinumber']='Multi Number';
+			if($xmlUser->getNumberOfBRIPorts() > 1)
+				$checkList['choices']['gnr']='GNR';
+		}
+
+
 		$checkList['expanded'] = true;
 		$checkList['multiple'] = false;
 		$checkList['required'] = true;
@@ -38,8 +43,7 @@ class NewpuiController extends Controller
 			$form->bindRequest($request);
 
 			switch ($task->getPuiType()) {
-				case 'bri':
-					echo "TO BE DONE!!!";
+				case 'gnr':
 					return $this->redirect($this->generateUrl('gnr', array('filename' => 'gnr')));
 					break;
 				case 'singlenumber':

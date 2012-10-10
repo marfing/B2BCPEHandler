@@ -1,0 +1,20 @@
+{# qui si definisce come formattare il form con nome indicato in form_widget e con route che rimanda al controller definita in path #}
+
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Multi number configuration</title>
+		<link rel="stylesheet" href="/css/Style1.css" />
+	</head>
+  
+	<body>
+		<div class="wrap">
+			<h2>Multi number configuration</h2>
+			<p>Max 4 multinumbers. Max 6 numbers for every multinumber</p>
+			<form action="{{ path('multinumber') }}" method="post" {{ form_enctype(multinumber_form) }}>
+					{{ form_widget(multinumber_form) }}  {{ form_errors(multinumber_form) }}
+				<br>
+					<input type="submit" />
+			</form>
+		</div>
+
+    </body>

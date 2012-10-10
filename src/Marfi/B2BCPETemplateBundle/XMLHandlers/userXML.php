@@ -50,6 +50,9 @@ class userXML
 	public function getSingleNumbersArray(){return $this->portsHandler->getSingleNumbersArray();}
 	public function getPortNamesArray(){ return $this->portsHandler->getPortNamesArray();}
 	public function getPortNamesArrayWithoutSingleNumber(){ 	return $this->portsHandler->getPortNamesArrayWithoutSingleNumber();}
+	public function getBRIPortNamesArray(){ return $this->portsHandler->getBRIPortNamesArray();}
+	public function hasBRIPorts(){return $this->portsHandler->hasBRIPorts();}
+	public function getNumberOfBRIPorts(){return $this->portsHandler->getNumberOfBRIPorts();}
 }
 
 class userXMLportsHandler
@@ -75,6 +78,13 @@ class userXMLportsHandler
 	public function hasPorts(){
 		if($this->portsNumber != 0) return true;
 		else return false;
+	}
+	public function hasBRIPorts(){
+		if($this->hasPorts())
+			foreach ($this->portsArray as $port)
+				if($port->isBRI())
+					return true;
+		return false;
 	}
 	public function printPorts(){
 		if($this->portsNumber != 0){
@@ -129,7 +139,20 @@ class userXMLportsHandler
 		}
 		return $portNamesArray;
 	}
-	
+	public function getBRIPortNamesArray(){
+		if($this->hasBRIPorts()){
+			foreach ($this->portsArray as $port)
+				if($port->isBRI())
+					$portNamesArray[]=$port->getName();
+			return $portNamesArray;
+		} return $portNamesArray[]='empty';
+	}
+	public function getNumberOfBRIPorts(){
+		$counter = 0;
+		foreach ($this->portsArray as $port)
+			if($port->isBRI()) $counter++;
+		return $counter;
+	}
 }
 
 class userXMLport

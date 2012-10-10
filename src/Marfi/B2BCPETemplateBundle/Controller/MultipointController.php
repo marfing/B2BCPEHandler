@@ -52,7 +52,7 @@ class MultipointController extends Controller
 				}
 				$checkList['expanded'] = true;
 				$checkList['multiple'] = true;
-				$checkList['label'] = 'Set (if needed) point to multipoint on ports: ';
+				$checkList['label'] = 'Set (if needed) point to multipoint on ISDN ports: ';
 				$checkList['required'] = true;
 				$form = $form->add('portList', 'choice', $checkList)
 										->getForm();

@@ -101,7 +101,7 @@
 		</multinumbers>
 		<cli_services>
 			<fax enabled="boolean" number_of_cli="value"> <!--only cli that do not have pos-->
-				<cli>value</clir> <!-- almeno uno se fax enabled -->
+				<cli>value</cli> <!-- almeno uno se fax enabled -->
 			</fax>
 			<pos enabled="boolean" number_of_cli="value"> <!--only cli that do not have fax -->
 				<cli>value</cli> <!-- almeno uno se fax enabled -->
@@ -111,4 +111,4 @@
 			</clir>
 		</cli_services>
 	</model>
-<customer_id/>
+</customer_id>
