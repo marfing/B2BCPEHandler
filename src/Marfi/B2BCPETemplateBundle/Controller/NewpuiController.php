@@ -17,12 +17,12 @@ class NewpuiController extends Controller
 	{
 		$session = $this->get('session');		
 		$xmlUser = $session->get('userxml');
-//		$xmlUser->printUserXML();
 		
 		$task = new newPuiTask();
 		$checkList['choices']['singlenumber']='Single Number';
 		if($xmlUser->hasBRIPorts()){
-			$checkList['choices']['multinumber']='Multi Number';
+			if(!$xmlUser->multinumberPacketsLimitReached())
+				$checkList['choices']['multinumber']='Multi Number';
 			if($xmlUser->getNumberOfBRIPorts() > 1 && !$xmlUser->hasGnr())
 				$checkList['choices']['gnr']='GNR';
 		}

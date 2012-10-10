@@ -30,9 +30,9 @@ Marfi\B2BCPETemplateBundle\Entity\MultinumberTask:
         portListNames:
             - NotBlank: {message: "You must select at least one port"} 
       getters:
-        NumberLimitOk:
-          - "True": {message: "You cannot configure more than 6 PUIs for every multinumbers packet!!"}
-        PacketLimitOk:
+        CliListOk:
+          - "True": {message: "Not valid cli number, please insert again valid Italian PUI number (min 5 digits max 11 digits. Format: 0<local_area><customer_root>)"}				
+        BindOk:
           - "True": {message: "If you select bonding aggregation, at least two ports must be selected - If you don't select bonding aggregation, only one port must be selected"}
 
 Marfi\B2BCPETemplateBundle\Entity\MultipointTask:

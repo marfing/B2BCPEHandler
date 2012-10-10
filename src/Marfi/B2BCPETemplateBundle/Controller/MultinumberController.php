@@ -6,7 +6,7 @@ namespace Marfi\B2BCPETemplateBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Marfi\B2BCPETemplateBundle\XMLHandlers\B2BCpeModelXmlHandler;
 use Marfi\B2BCPETemplateBundle\XMLHandlers\userXML;
-use Marfi\B2BCPETemplateBundle\Entity\singleNumberTask;
+use Marfi\B2BCPETemplateBundle\Entity\MultiNumberTask;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,12 +21,10 @@ class MultinumberController extends Controller
 		$session = $this->get('session');		
 		$this->xmlUser = 	$session->get('userxml');
 		$task = new MultiNumberTask();
-		
-			
 		$form = $this->createFormBuilder($task)
-						->add('howMany','integer',array('label' => 'Insert how many PUIs',
+/*						->add('howMany','integer',array('label' => 'Insert how many PUIs',
 																		'required' => true,
-																		'error_bubbling'=>true))
+																		'error_bubbling'=>true)) */
 						->add('bind','checkbox',array('label' => 'Bonding aggregation',
 																	'required' => false,
 																	'error_bubbling'=>true));
@@ -40,22 +38,34 @@ class MultinumberController extends Controller
 		$checkList['required'] = true;
 		$checkList['error_bubbling']=true;
 		$form = $form->add('portList', 'choice', $checkList)
+							->add('cli1','text', array('label'=>'Insert cli1',
+																'required' => true,
+																'error_bubbling'=>true))
+							->add('cli2','text', array('label'=>'Insert cli2',
+																'required' => true,
+																'error_bubbling'=>true))
+							->add('cli3','text', array('label'=>'Insert cli3',
+																'required' => false,
+																'error_bubbling'=>true))
+							->add('cli4','text', array('label'=>'Insert cli4',
+																'required' => false,
+																'error_bubbling'=>true))
+							->add('cli5','text', array('label'=>'Insert cli5',
+																'required' => false,
+																'error_bubbling'=>true))
+							->add('cli6','text', array('label'=>'Insert cli6',
+																'required' => false,
+																'error_bubbling'=>true))
 								->getForm();
 		
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
-				/*
-				foreach ($task->getPortList() as $port){
-					$this->xmlUser->setSingleNumber($task->getSingleNumber(), $port);
-				 */
-				}
-				$session->set('userxml',  $this->xmlUser );
-				return $this->redirect($this->generateUrl('multinumber', array('filename' => 'multinumber')));
-			} 
-		return $this->render('MarfiB2BCPETemplateBundle:Default:multinumber.html.twig', 
-								array('multinumber_form' => $form->createView(),));
-
+				$this->xmlUser->setMultinumber($task->getBind(), $task->getPortList(), $task->getCliList());
+				return $this->redirect($this->generateUrl('newpui', array('filename' => 'newpui')));
+			}
+		}
+		return $this->render('MarfiB2BCPETemplateBundle:Default:multinumberForm.html.twig', array('multinumber_form' => $form->createView()));
 	}
 }
 

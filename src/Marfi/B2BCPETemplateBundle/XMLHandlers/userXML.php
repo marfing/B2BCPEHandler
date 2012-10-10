@@ -11,10 +11,12 @@ class userXML
 	protected $modelName;
 	protected $simCallsNumber;
 	protected $portsHandler;
-	protected $multinumbersArray;
+//	protected $multinumbersHandler;
 	protected $cliServices;
 	protected $customerId;
 	protected $hasGnr = false;
+	protected $multinumbersArray;
+	protected $multinumberPacketsCounter = 0; //max 4
 	
 	public function __construct($vendor, $model, $simcalls, $customerid){
 		$this->vendorName = $vendor;
@@ -56,10 +58,31 @@ class userXML
 		if($this->portsHandler->hasPorts()){
 			echo $this->portsHandler->printPorts(). "<br>";
 		}
+		if($this->multinumberPacketsCounter>0){
+			echo "<table border=\"1\">";
+			foreach ($this->multinumbersArray as $key => $multinumber){
+				echo "<tr><td>Multinumber " .$key. "</td></tr>";
+				echo "<tr><td>Bind: " . ($multinumber->hasBind()?"enabled":"disabled") . "</td>";
+				echo "<td><table border=\"1\"><tr><td>Ports: </td><td><ul>";
+				foreach ($multinumber->getPortsNameArray() as $port){
+					echo "<li>" .$port . "</li>";
+				} echo "</ul></td></tr></table>";
+				echo "<td><table border=\"1\"><tr><td>Cli: </td><td><ul>";
+				foreach ($multinumber->getCliList() as $cli){
+					echo "<li>" .$cli. "</li>";
+				} echo "</ul></td></tr></table>";
+			} echo "</table>";
+		}
 		//TO DO - aggiungere gli altri elementi man mano che li si crea
 	}
 	public function printUserXMLOutside(){return $this->portsHandler->getPrintPorts();}
+	public function setMultinumber($bind, $portsnamearray, $clilist){ 		
+		$this->multinumbersArray[] = new multiNumber($bind, $portsnamearray, $clilist);
+		$this->multinumberPacketsCounter++;
+	}
+	public function multinumberPacketsLimitReached(){	return ($this->multinumberPacketsCounter < 4) ? false : true; 	}
 }
+
 
 class userXMLportsHandler
 {
@@ -230,7 +253,6 @@ class userXMLport
 		$this->pobri = $pobri;
 		$this->typeString = (string)$typeString;
 		$this->singleNumber = new singleNumber();
-		$this->gnrContainer = new gnrContainer();
 		$this->incomingPrefixRule = new prefixRule(true);
 		$this->outgoingPrefixRule = new prefixRule(false);
 	}
@@ -322,24 +344,6 @@ class singleNumber
 	public function getCli(){ return (string)$this->cli; }
 }
 
-//TO DO -  non necessaria perchè si può avere un solo GNR per customer - da eliminare alla fine
-class gnrContainer
-{
-	protected $gnrArray;
-	protected $howManyGnr = 0;
-	protected $enabled = false;
-	
-	public function createGnr($root, $did, $extens){
-		$gnr = new gnr($root, $did, $extens);
-		$this->gnrArray[] = $gnr;
-		$this->howManyGnr++;
-	}
-	public function howManyGnr(){return $this->howManyGnr;}
-	public function isEnabled(){
-		return $this->enabled;
-	}
-}
-
 class gnr
 {
 	protected $root;
@@ -357,6 +361,23 @@ class gnr
 	public function getRoot(){ return $this->root; }
 	public function hasDid(){ return $this->did;}
 	public function getExtensionDigits(){return $this->extensionDigits;}
+}
+
+
+class multiNumber{
+	protected $bind = false;
+	protected $portNamesArray;
+	protected $cliList;
+	
+	public function __construct($bind, $portsnamearray, $clilist){
+		$this->bind = $bind;
+		$this->portNamesArray = $portsnamearray;
+		$this->cliList = $clilist;
+	}
+	
+	public function hasBind(){return $this->bind;}
+	public function getPortsNameArray(){return $this->portNamesArray;}
+	public function getCliList(){return $this->cliList;}
 }
 
 ?>
