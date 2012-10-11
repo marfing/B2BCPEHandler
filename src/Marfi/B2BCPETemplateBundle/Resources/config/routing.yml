@@ -40,6 +40,14 @@ fax:
     pattern:  /Model/fax
     defaults: { _controller: MarfiB2BCPETemplateBundle:Fax:index}
 
+faxcli:
+    pattern:  /Model/faxcli/{howmany}
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Faxcli:index, howmany: 0}
+
+pos:
+    pattern:  /Model/pos
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Pos:index}
+
 #route richiamata dal redirect dentro il defaultController dopo aver scelto il modello
 modelroute:
     pattern:  /Model/{filename}

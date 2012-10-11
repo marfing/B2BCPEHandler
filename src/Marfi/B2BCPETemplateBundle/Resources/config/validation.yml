@@ -35,6 +35,13 @@ Marfi\B2BCPETemplateBundle\Entity\MultinumberTask:
         BindOk:
           - "True": {message: "If you select bonding aggregation, at least two ports must be selected - If you don't select bonding aggregation, only one port must be selected"}
 
+Marfi\B2BCPETemplateBundle\Entity\EnableTask:
+      getters:
+        EnableOk:
+          - "True": {message: "If you enable fax, you must insert how many CLIs will have it -- You cannot insert how many CLIs if you don't enable fax"}
+        HowManyOk:
+          - "True": {message: "You cannot have so many fax - not enought CLI configured!!"}
+
 Marfi\B2BCPETemplateBundle\Entity\MultipointTask:
       properties:
         portListNames:

@@ -46,11 +46,11 @@ class NewpuiController extends Controller
 																															'summary'=>$xmlUser));
 	}
 	
-	public function summaryAction(){
+/*	public function summaryAction(){
 		$session = $this->get('session');		
 		$xmlUser = 	$session->get('userxml');
 		return $this->render('MarfiB2BCPETemplateBundle:Default:newpuiForm.html.twig', array('summary'=>$xmlUser->printUserXMLOutside()) );
-	}
+	}*/
  }
 
 class newPuiTask{
@@ -60,10 +60,6 @@ class newPuiTask{
 		public function setPuiType($puiType){ $this->puitype = $puiType; }
 		public function printData(){ echo "<table border=\"1\"><tr><td>PuiType: </td><td>" . $this->puitype. "</td></tr></table>" ; }
 }
-
-
-
-
 
 
 

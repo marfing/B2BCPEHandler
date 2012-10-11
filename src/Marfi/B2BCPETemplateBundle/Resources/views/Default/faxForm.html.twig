@@ -2,19 +2,20 @@
 
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>GNR configuration</title>
+		<title>Fax service configuration</title>
 		<link rel="stylesheet" href="/css/Style1.css" />
 	</head>
   
 	<body>
 		<div class="central">
-			<h2>GNR configuration</h2>
-			<p>Max 3 digits extension</p>
-			<form action="{{ path('gnr') }}" method="post" {{ form_enctype(gnr_form) }}>
-					{{ form_widget(gnr_form) }}  {{ form_errors(gnr_form) }}
+			<h2>Fax service configuration</h2>
+			<form action="{{ path('fax') }}" method="post" {{ form_enctype(fax_form) }}>
+					{{ form_widget(fax_form) }}  {{ form_errors(fax_form) }}
 				<br>
 					<input type="submit" />
 			</form>
+			<form method="link" action="{{ path('pos') }} "><input type="submit" value=" Skip fax configuration"></form>
+
 		</div>
 
     </body>

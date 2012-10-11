@@ -17,6 +17,7 @@ class userXML
 	protected $hasGnr = false;
 	protected $multinumbersArray;
 	protected $multinumberPacketsCounter = 0; //max 4
+	protected $cliList;
 	
 	public function __construct($vendor, $model, $simcalls, $customerid){
 		$this->vendorName = $vendor;
@@ -37,7 +38,10 @@ class userXML
 		else 
 			echo "<h2 style=\"color:red\">ERROR - trying to configure multimode without any BRI port available!!</h2>";
 	}
-	public function setSingleNumber($cliString, $portName){$this->portsHandler->setSingleNumber($cliString, $portName);}
+	public function setSingleNumber($cliString, $portName){
+		$this->portsHandler->setSingleNumber($cliString, $portName);
+		$this->cliList[]=$cliString;
+		}
 	public function getSingleNumbersArray(){return $this->portsHandler->getSingleNumbersArray();}
 	public function setGnr($root, $did, $digits, $portName){
 		$this->hasGnr = true;
@@ -79,10 +83,16 @@ class userXML
 	public function setMultinumber($bind, $portsnamearray, $clilist){ 		
 		$this->multinumbersArray[] = new multiNumber($bind, $portsnamearray, $clilist);
 		$this->multinumberPacketsCounter++;
+		foreach ($clilist as $cli) $this->cliList[]=$cli;
 	}
 	public function multinumberPacketsLimitReached(){	return ($this->multinumberPacketsCounter < 4) ? false : true; 	}
+	public function isOneOfMyCli($cli){
+		foreach($this->cliList as $mycli) 
+			if($cli == $mycli) return true;
+		return false;
+	}
+	public function howManyCli(){return count($this->cliList);}
 }
-
 
 class userXMLportsHandler
 {
@@ -362,7 +372,6 @@ class gnr
 	public function hasDid(){ return $this->did;}
 	public function getExtensionDigits(){return $this->extensionDigits;}
 }
-
 
 class multiNumber{
 	protected $bind = false;

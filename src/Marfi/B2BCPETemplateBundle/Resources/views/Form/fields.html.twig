@@ -13,10 +13,10 @@
 {% block field_row %}
 {% spaceless %}
     <tr>
-        <td>
+        <td class="form">
             {{ form_label(form, label|default(null)) }}
         </td>
-        <td>
+        <td class="form">
             {{ form_errors(form) }}
             {{ form_widget(form) }}
         </td>

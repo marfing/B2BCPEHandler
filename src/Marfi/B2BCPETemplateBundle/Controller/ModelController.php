@@ -18,11 +18,6 @@ class ModelController extends Controller
     public function indexAction(Request $request)
     {
 			$session = $this->get('session');
-			/*test session da rimuovere
-			$sessionName = $session->get('test');
-			echo "<p>test session name: " .$sessionName->getName(). "</p>";
-			echo "<p>test session surname: " .$sessionName->surname. "</p>";
-			*/
 			$customerIDData = array('customerIDForm' => 'Insert Customer ID');
 			$customerIDForm = $this->createFormBuilder($customerIDData)
 							->add('CustomerID','text', array('label'=>'Insert customer ID',

@@ -8,9 +8,6 @@
 	</head>
   
 	<body>
-		<div class="summary">
-			{{summary.printUserXML}}
-		</div>
 		<div class="wrap">
 			<h2>PUI configuration</h2>
 			For Multinumber you need at least one BRI port
@@ -22,6 +19,10 @@
 			</form>
 			<form method="link" action="{{ path('fax') }} "><input type="submit" value=" No more PUI configuration"></form>
 		</div>
+		<aside class="summary">
+			<h2>Summary</h2>
+			{{summary.printUserXML}}
+			</aside>
 
     </body>
 {# empty Twig template #}

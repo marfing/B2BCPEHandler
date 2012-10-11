@@ -11,12 +11,12 @@ body {
 	font-size: 10px
 }
 
-/*td{
+/*table.summary td{
 	font-size: 11px;
 }*/
 
-table{
-	font-size: 12px;
+td.form{
+	font-size: 16px;
 }
 
 table.gnr{
@@ -24,13 +24,26 @@ table.gnr{
 }
 
 .wrap {
-    width: 600px;
+    width: 50%;
+    margin: auto;
+	font-size: 14px;
+	float: right;
+}
+
+.central {
+    width: 50%;
     margin: auto;
 	font-size: 14px;
 }
 
-.summary {
-    font-size: 10px;
+
+aside.summary {
+	/*height: 400px;*/
+	background:   lavender;
+	width: 50%;
+	float: left;
 }
 
-
+aside.summary td{
+	font-size: 11px;
+}
