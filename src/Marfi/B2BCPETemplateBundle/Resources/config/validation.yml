@@ -10,9 +10,8 @@ Marfi\B2BCPETemplateBundle\Entity\SingleNumberTask:
         BindOk:
           - "True": {message: "If you select bonding aggregation, at least two ports must be selected - If you don't select bonding aggregation, only one port must be selected"}
         SingleNumberUnused:
-          - "True": {message: "Single number already configured, you cannot use it!!!"}
+          - "True": {message: "Number (PUI) already configured, you cannot use it!!!"}
         
-
 Marfi\B2BCPETemplateBundle\Entity\GnrTask:
       properties:
         portListNames:
@@ -24,6 +23,10 @@ Marfi\B2BCPETemplateBundle\Entity\GnrTask:
           - "True": {message: "If you select bonding aggregation, at least two ports must be selected - If you don't select bonding aggregation, only one port must be selected"}
         DidOk:
           - "True": {message: "If you select DID, you must set digits extension - If you don't select DID, don't insert any digit extension"}
+        CliAlreadyUsed:
+          - "True": {message: "Number (PUI) already configured, please check it!!"}
+        ExtensionOk:
+           - "True": {message: "You cannot configure more that 4 digit extensions!"}
 
 Marfi\B2BCPETemplateBundle\Entity\MultinumberTask:
       properties:
@@ -34,7 +37,9 @@ Marfi\B2BCPETemplateBundle\Entity\MultinumberTask:
           - "True": {message: "Not valid cli number, please insert again valid Italian PUI number (min 5 digits max 11 digits. Format: 0<local_area><customer_root>)"}				
         BindOk:
           - "True": {message: "If you select bonding aggregation, at least two ports must be selected - If you don't select bonding aggregation, only one port must be selected"}
-
+        CliAlreadyUsed:
+          - "True": {message: "Number (PUI) already configured, please check it!!"}
+           
 Marfi\B2BCPETemplateBundle\Entity\EnableTask:
       getters:
         EnableOk:

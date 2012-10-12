@@ -9,9 +9,8 @@ class SingleNumberTask{
 		protected $singleNumber;
 		protected $portListNames;
 		protected $bind = false;
-		protected $usedSingleNumbersArray;
 		
-		public function __construct($usedSingleNumbersArray){$this->usedSingleNumbersArray = $usedSingleNumbersArray;	}
+		public function __construct(userXML $userXML){$this->userXML = $userXML;}
 		
 		public function getSingleNumber(){ 	return $this->singleNumber; }
 		public function setSingleNumber($singleNumber){ $this->singleNumber = $singleNumber; 	}
@@ -38,9 +37,7 @@ class SingleNumberTask{
 			return true;
 		}
 		public function isSingleNumberUnused(){
-			foreach($this->usedSingleNumbersArray as $usedNumber)
-				if($usedNumber == $this->singleNumber)
-					return false;
+			if($this->userXML->isOneOfMyCli((string)$this->singleNumber)) return false;
 			return true;
 		}
 	}

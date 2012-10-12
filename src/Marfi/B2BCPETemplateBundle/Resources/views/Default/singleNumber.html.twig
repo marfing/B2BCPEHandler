@@ -7,13 +7,18 @@
 	</head>
   
 	<body>
-		<div class="central">
+		<div class="wrap">
 			<h2>Single number configuration</h2>
 			<form action="{{ path('singlenumber') }}" method="post" {{ form_enctype(singlenumber_form) }}>
 					{{ form_widget(singlenumber_form) }}  {{ form_errors(singlenumber_form) }}
 				<br>
 					<input type="submit" />
 			</form>
+			<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
 		</div>
+		<aside class="summary">
+			<h2>Summary</h2>
+			{{summary.printUserXML}}
+		</aside>
 
     </body>

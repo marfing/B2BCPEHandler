@@ -11,13 +11,14 @@ class userXML
 	protected $modelName;
 	protected $simCallsNumber;
 	protected $portsHandler;
-//	protected $multinumbersHandler;
 	protected $cliServices;
 	protected $customerId;
 	protected $hasGnr = false;
+	protected 	$gnrRoot;
+	protected 	$gnrExtension;
 	protected $multinumbersArray;
 	protected $multinumberPacketsCounter = 0; //max 4
-	protected $cliList;
+	protected $cliList = array();
 	
 	public function __construct($vendor, $model, $simcalls, $customerid){
 		$this->vendorName = $vendor;
@@ -45,6 +46,8 @@ class userXML
 	public function getSingleNumbersArray(){return $this->portsHandler->getSingleNumbersArray();}
 	public function setGnr($root, $did, $digits, $portName){
 		$this->hasGnr = true;
+		$this->gnrRoot = $root;
+		$this->gnrExtension = $digits;
 		$this->portsHandler->setGnr($root, $did, $digits, $portName);
 	}
 	public function hasGnr(){return $this->hasGnr;}
@@ -87,11 +90,32 @@ class userXML
 	}
 	public function multinumberPacketsLimitReached(){	return ($this->multinumberPacketsCounter < 4) ? false : true; 	}
 	public function isOneOfMyCli($cli){
+		if($this->cliList)
 		foreach($this->cliList as $mycli) 
 			if($cli == $mycli) return true;
+		if($this->hasGnr){
+			echo "Has gnr - Extension: " .$this->gnrExtension;
+			for($i=1; $i<=$this->gnrExtension; $i++){
+				$base = intval($this->gnrRoot)*pow(10,$i);
+				echo "base: " .$base;
+				$finalnumber = $base + pow(10,$i);
+				echo "Final number: " .$finalnumber;
+				$counter = 1;
+				for($j=$base; $j<$finalnumber;$j++){
+					$mygnrcli = '0' . ($base+$counter);
+					echo "Checking number: " .$mygnrli;
+					if($cli == $mygnrcli) return true;
+					$counter++;
+				}
+			}
+		}
 		return false;
 	}
-	public function howManyCli(){return count($this->cliList);}
+	public function howManyCli(){
+		$counter = count($this->cliList);
+		if($this->hasGnr)
+			$counter = $counter+pow(10,$this->gnrExtension-1);
+		return $counter;}
 }
 
 class userXMLportsHandler

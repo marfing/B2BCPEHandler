@@ -17,8 +17,6 @@ class FaxController extends Controller
 	{
 		$session = $this->get('session');		
 		$xmlUser = 	$session->get('userxml');
-		
-		
 		$task = new EnableTask($xmlUser->howManyCli());
 		$form = $this->createFormBuilder($task)
 						->add('enable','checkbox',array('label' => 'enable fax',
@@ -28,7 +26,6 @@ class FaxController extends Controller
 																		'required' => false,
 																		'error_bubbling'=>true))
 						->getForm();
-
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){

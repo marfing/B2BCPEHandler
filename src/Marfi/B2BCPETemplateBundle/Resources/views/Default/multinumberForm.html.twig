@@ -7,7 +7,7 @@
 	</head>
   
 	<body>
-		<div class="central">
+		<div class="wrap">
 			<h2>Multi number configuration</h2>
 			<p>Max 4 multinumbers. Max 6 numbers for every multinumber</p>
 			<form action="{{ path('multinumber') }}" method="post" {{ form_enctype(multinumber_form) }}>
@@ -15,6 +15,11 @@
 				<br>
 					<input type="submit" />
 			</form>
+			<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
 		</div>
+		<aside class="summary">
+			<h2>Summary</h2>
+			{{summary.printUserXML}}
+		</aside>
 
     </body>

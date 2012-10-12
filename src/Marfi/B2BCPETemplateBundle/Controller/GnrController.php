@@ -14,14 +14,13 @@ use Symfony\Component\HttpFoundation\Session;
 
 class GnrController extends Controller
 {
-	protected $xmlUser;
 	
 	public function indexAction(Request $request)
 	{
 		$session = $this->get('session');		
-		$this->xmlUser = 	$session->get('userxml');
+		$xmlUser = 	$session->get('userxml');
 	
-		$task = new GnrTask();
+		$task = new GnrTask($xmlUser);
 		$form = $this->createFormBuilder($task)
 						->add('rootNumber','text',array('label' => 'Insert root number', //text and not integer because otherwise forst zero will be cutted
 																		'required' => true,
@@ -33,10 +32,10 @@ class GnrController extends Controller
 																	'required' => false,
 																	'error_bubbling'=>true))
 						->add('gnrExtension','integer',array('label' => 'Insert gnr extension digits (DID must be enabled)', //max = 3
-																		'required' => true,
-																		'error_bubbling'=>true));
+																				'required' => true,
+																				'error_bubbling'=>true));
 		
-		foreach ($this->xmlUser->getBRIPortNamesArray() as $value){	
+		foreach ($xmlUser->getBRIPortNamesArray() as $value){	
 			$checkBoxName = $value;
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 
 		}
@@ -47,18 +46,18 @@ class GnrController extends Controller
 		$checkList['error_bubbling']=true;
 		$form = $form->add('portList', 'choice', $checkList)
 								->getForm();
-		
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
 				foreach ($task->getPortList() as $port){
-					$this->xmlUser->setGnr($task->getRootNumber(), $task->getDid(), $task->getGnrExtension(), $port);
+					$xmlUser->setGnr($task->getRootNumber(), $task->getDid(), $task->getGnrExtension(), $port);
 				}
-				$session->set('userxml',  $this->xmlUser );
+				$session->set('userxml',  $xmlUser );
 				return $this->redirect($this->generateUrl('newpui', array('filename' => 'nextpui')));
 			} 
 		}
-	return $this->render('MarfiB2BCPETemplateBundle:Default:gnr.html.twig', array('gnr_form' => $form->createView(),));
+	return $this->render('MarfiB2BCPETemplateBundle:Default:gnr.html.twig', array('gnr_form' => $form->createView(),
+																																'summary'=>$xmlUser));
 	}
 }
 

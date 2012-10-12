@@ -2,10 +2,8 @@
 
 namespace Marfi\B2BCPETemplateBundle\Entity;
 
-// TO DO - passare nel construttore il numero di multinumero creati fino a quel momento.
-// Si tenga conto infatti che:
-// 1) Max 4 pacchetti multinumero ammessi
-// 2) max 6 numeri per ogni pacchetto multinumero
+use Marfi\B2BCPETemplateBundle\XMLHandlers\userXML;
+
 
 class MultinumberTask{
 	
@@ -17,8 +15,10 @@ class MultinumberTask{
 	protected $cli4="";
 	protected $cli5="";
 	protected $cli6="";
-	protected $cliList;
+	protected $cliList = array();
+	protected $userXML;
 
+	public function __construct(userXML $userXml){$this->userXml = $userXml;}
 	public function getPortList(){ return $this->portListNames; }
 	public function setPortList($portList){ 	$this->portListNames = $portList; }
 	public function getBind(){ return $this->bind; }
@@ -57,6 +57,11 @@ class MultinumberTask{
 		if(!empty($this->cli6))
 			$this->cliList[] = $this->cli6;
 		return $this->cliList;
+	}
+	public function isCliAlreadyUsed(){
+		foreach ($this->getCliList() as $validcli)
+			if($this->userXml->isOneOfMyCli($validcli)) return false;
+		else return true;
 	}
 	public function isCliListOk(){
 		foreach ($this->getCliList() as $validcli)

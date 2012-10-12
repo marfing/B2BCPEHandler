@@ -14,21 +14,17 @@ use Symfony\Component\HttpFoundation\Session;
 
 class MultinumberController extends Controller
 {
-	protected $xmlUser;
-	
+
 	public function indexAction(Request $request)
 	{
 		$session = $this->get('session');		
-		$this->xmlUser = 	$session->get('userxml');
-		$task = new MultiNumberTask();
+		$xmlUser = 	$session->get('userxml');
+		$task = new MultiNumberTask($xmlUser);
 		$form = $this->createFormBuilder($task)
-/*						->add('howMany','integer',array('label' => 'Insert how many PUIs',
-																		'required' => true,
-																		'error_bubbling'=>true)) */
-						->add('bind','checkbox',array('label' => 'Bonding aggregation',
-																	'required' => false,
-																	'error_bubbling'=>true));
-		foreach ($this->xmlUser->getBRIPortNamesArray() as $value){	
+							->add('bind','checkbox',array('label' => 'Bonding aggregation',
+																		'required' => false,
+																		'error_bubbling'=>true));
+		foreach ($xmlUser->getBRIPortNamesArray() as $value){	
 			$checkBoxName = $value;
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 
 		}
@@ -56,16 +52,16 @@ class MultinumberController extends Controller
 							->add('cli6','text', array('label'=>'Insert cli6',
 																'required' => false,
 																'error_bubbling'=>true))
-								->getForm();
-		
+							->getForm();
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
-				$this->xmlUser->setMultinumber($task->getBind(), $task->getPortList(), $task->getCliList());
+				$xmlUser->setMultinumber($task->getBind(), $task->getPortList(), $task->getCliList());
 				return $this->redirect($this->generateUrl('newpui', array('filename' => 'newpui')));
 			}
 		}
-		return $this->render('MarfiB2BCPETemplateBundle:Default:multinumberForm.html.twig', array('multinumber_form' => $form->createView()));
+		return $this->render('MarfiB2BCPETemplateBundle:Default:multinumberForm.html.twig', array('multinumber_form' => $form->createView(),
+																																							'summary'=>$xmlUser));
 	}
 }
 

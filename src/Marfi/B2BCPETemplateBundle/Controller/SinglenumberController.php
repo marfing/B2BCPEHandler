@@ -13,13 +13,12 @@ use Symfony\Component\HttpFoundation\Session;
 
 class SinglenumberController extends Controller
 {
-	protected $xmlUser;
-	
+
 	public function indexAction(Request $request)
 	{
 		$session = $this->get('session');		
-		$this->xmlUser = 	$session->get('userxml');
-		$task = new SingleNumberTask($this->xmlUser->getSingleNumbersArray());
+		$xmlUser = 	$session->get('userxml');
+		$task = new SingleNumberTask($xmlUser);
 		$form = $this->createFormBuilder($task)
 						->add('singleNumber','text',array('label' => 'Insert PUI number',
 																		'required' => true,
@@ -27,7 +26,7 @@ class SinglenumberController extends Controller
 						->add('bind','checkbox',array('label' => 'Bonding aggregation',
 																	'required' => false,
 																	'error_bubbling'=>true));
-		foreach ($this->xmlUser->getPortNamesArrayWithoutSingleNumber() as $value){	
+		foreach ($xmlUser->getPortNamesArrayWithoutSingleNumber() as $value){	
 			$checkBoxName = $value;
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 
 		}
@@ -38,19 +37,19 @@ class SinglenumberController extends Controller
 		$checkList['error_bubbling']=true;
 		$form = $form->add('portList', 'choice', $checkList)
 								->getForm();
-		
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
 				foreach ($task->getPortList() as $port){
-					$this->xmlUser->setSingleNumber($task->getSingleNumber(), $port);
+					$xmlUser->setSingleNumber($task->getSingleNumber(), $port);
 				}
-				$session->set('userxml',  $this->xmlUser );
+				$session->set('userxml',  $xmlUser );
 				return $this->redirect($this->generateUrl('newpui', array('filename' => 'nextpui')));
 			} 
 		}
 		return $this->render('MarfiB2BCPETemplateBundle:Default:singlenumber.html.twig', 
-								array('singlenumber_form' => $form->createView(),));
+								array('singlenumber_form' => $form->createView(),
+										'summary'=>$xmlUser));
 	}
 }
 

@@ -4,7 +4,6 @@ namespace Marfi\B2BCPETemplateBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Marfi\B2BCPETemplateBundle\XMLHandlers\userXML;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
@@ -18,7 +17,6 @@ class FaxCliController extends Controller
 		$xmlUser = 	$session->get('userxml');
 		if($howmany == 0)
 			$howmany = count($request->get('form')) -1;
-//		$data = array('clilist'=>'Insert cli list');
 		$data = array();
 		$form = $this->createFormBuilder($data);
 		for($i=1; $i<=$howmany; $i++)
@@ -26,7 +24,6 @@ class FaxCliController extends Controller
 																		'required' => true,
 																		'error_bubbling'=>true));
 		$form = $form->getForm();
-
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			$data = $form->getData();
