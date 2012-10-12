@@ -48,6 +48,14 @@ pos:
     pattern:  /Model/pos
     defaults: { _controller: MarfiB2BCPETemplateBundle:Pos:index}
 
+poscli:
+    pattern:  /Model/poscli/{howmany}
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Poscli:index, howmany: 0}
+
+prefix:
+    pattern:  /Model/prefix
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Prefix:index}
+
 #route richiamata dal redirect dentro il defaultController dopo aver scelto il modello
 modelroute:
     pattern:  /Model/{filename}

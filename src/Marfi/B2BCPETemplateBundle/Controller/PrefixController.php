@@ -4,27 +4,29 @@ namespace Marfi\B2BCPETemplateBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Marfi\B2BCPETemplateBundle\XMLHandlers\userXML;
-use Marfi\B2BCPETemplateBundle\Entity\EnableServiceTask;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
 
-class FaxController extends Controller
+class PrefixController extends Controller
 {
 	
 	public function indexAction(Request $request)
 	{
 		$session = $this->get('session');		
 		$xmlUser = 	$session->get('userxml');
-		$task = new EnableServiceTask($xmlUser);
+
+		/*
+		$task = new EnableTask($xmlUser);
 		$form = $this->createFormBuilder($task)
 						->add('enable','checkbox',array('label' => 'enable fax',
-																		'required' => true,
+																	'required' => false,
+																	'error_bubbling'=>true))
+						->add('howMany','integer',array('label' => 'Insert how many PUIs',
+																		'required' => false,
 																		'error_bubbling'=>true))
-						->add('howMany','integer',array('label' => 'Insert how many CLIs',
-																		'required' => true,
-																		'error_bubbling'=>true))->getForm();
+						->getForm();
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
@@ -32,12 +34,9 @@ class FaxController extends Controller
 					return $this->redirect($this->generateUrl('faxcli', array('howmany' =>$task->getHowMany())));
 				else
 					return $this->redirect($this->generateUrl('pos', array('filename' =>'pos')));
-//				return new Response();
 			}
-		}
-		return $this->render('MarfiB2BCPETemplateBundle:Default:faxForm.html.twig', array('fax_form' => $form->createView(),
-																																				'error_msg'=>'',
-																																				'summary'=>$xmlUser));
+		}*/
+		return $this->render('MarfiB2BCPETemplateBundle:Default:prefixForm.html.twig', array(	'summary'=>$xmlUser));
 	}
 }
 

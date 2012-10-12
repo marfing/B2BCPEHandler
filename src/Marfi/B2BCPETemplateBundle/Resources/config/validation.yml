@@ -40,12 +40,15 @@ Marfi\B2BCPETemplateBundle\Entity\MultinumberTask:
         CliAlreadyUsed:
           - "True": {message: "Number (PUI) already configured, please check it!!"}
            
-Marfi\B2BCPETemplateBundle\Entity\EnableTask:
+Marfi\B2BCPETemplateBundle\Entity\EnableServiceTask:
+      properties:
+        howMany:
+        - NotBlank: {message: "You must define how many CLI will have fax!!"}
+        enable:
+        - NotBlank: {message: "You must enable it!!"}
       getters:
-        EnableOk:
-          - "True": {message: "If you enable fax, you must insert how many CLIs will have it -- You cannot insert how many CLIs if you don't enable fax"}
         HowManyOk:
-          - "True": {message: "You cannot have so many fax - not enought CLI configured!!"}
+          - "True": {message: "You cannot have so many CLI - not enought CLI available!!"}
 
 Marfi\B2BCPETemplateBundle\Entity\MultipointTask:
       properties:

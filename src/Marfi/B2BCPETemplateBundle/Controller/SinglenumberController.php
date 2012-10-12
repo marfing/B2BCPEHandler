@@ -40,9 +40,8 @@ class SinglenumberController extends Controller
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
-				foreach ($task->getPortList() as $port){
+				foreach ($task->getPortList() as $port)
 					$xmlUser->setSingleNumber($task->getSingleNumber(), $port);
-				}
 				$session->set('userxml',  $xmlUser );
 				return $this->redirect($this->generateUrl('newpui', array('filename' => 'nextpui')));
 			} 

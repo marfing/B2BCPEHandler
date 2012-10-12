@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
 
-class FaxCliController extends Controller
+class PosCliController extends Controller
 {
 	
 	public function indexAction(Request $request, $howmany)
@@ -31,35 +31,32 @@ class FaxCliController extends Controller
 					return $this->render('MarfiB2BCPETemplateBundle:Default:cliListForm.html.twig', 
 														array('list_form' => $form->createView(),
 																'error_msg'=>$errorMessage,
-																'servicetype'=>'fax',
+																'servicetype'=>'pos',
 																'summary'=>$xmlUser));
 				}
 				if(!$xmlUser->isGoodForService($cli)){
-					$errorMessage = "This CLI "  .$cli. " is not configured or already in use with another service, so cannot be used for a fax service";
+					$errorMessage = "This CLI "  .$cli. " is not configured or already in use with another service, so cannot be used for a pos service";
 					return $this->render('MarfiB2BCPETemplateBundle:Default:cliListForm.html.twig', 
 														array('list_form' => $form->createView(),
 																'error_msg'=>$errorMessage,
-																'servicetype'=>'fax',
+																'servicetype'=>'pos',
 																'summary'=>$xmlUser));
 				}
 			}
-			//inserire qui l'inserimento del servizio nello userXML
-			$xmlUser->setFax($data);
+			$xmlUser->setPos($data);
 			$session->set('userxml',  $xmlUser );
-			return $this->redirect($this->generateUrl('pos', array('filename' =>'pos')));
+			return $this->redirect($this->generateUrl('prefix', array('filename' =>'prefix')));
 		}
 		return $this->render('MarfiB2BCPETemplateBundle:Default:cliListForm.html.twig', array('list_form' => $form->createView(),
 																																		'error_msg'=>'',
 																																		'summary'=>$xmlUser,
-																																		'servicetype'=>'fax'));
+																																		'servicetype'=>'pos'));
 	}
-
 	public function isE164($cli){   /// not standards compliant i.e won't meet E.164 etc for validating international phone numbers
 		trim($cli);
 		if(!preg_match("/^[0]\d{3,12}$/",$cli)) return false;
 		return true;
 	}
-
 }
 
 ?>

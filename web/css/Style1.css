@@ -36,7 +36,6 @@ table.gnr{
 	font-size: 14px;
 }
 
-
 aside.summary {
 	/*height: 400px;*/
 	background:   lavender;
@@ -46,4 +45,9 @@ aside.summary {
 
 aside.summary td{
 	font-size: 11px;
+}
+
+.error{
+	font-style: italic;
+	color: red;
 }

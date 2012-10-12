@@ -45,12 +45,6 @@ class NewpuiController extends Controller
 			return $this->render('MarfiB2BCPETemplateBundle:Default:newpuiForm.html.twig', array('newpui_form' => $form->createView(),
 																															'summary'=>$xmlUser));
 	}
-	
-/*	public function summaryAction(){
-		$session = $this->get('session');		
-		$xmlUser = 	$session->get('userxml');
-		return $this->render('MarfiB2BCPETemplateBundle:Default:newpuiForm.html.twig', array('summary'=>$xmlUser->printUserXMLOutside()) );
-	}*/
  }
 
 class newPuiTask{

@@ -7,7 +7,7 @@
 	</head>
   
 	<body>
-		<div class="central">
+		<div class="wrap">
 			<h2>Fax service configuration</h2>
 			<form action="{{ path('fax') }}" method="post" {{ form_enctype(fax_form) }}>
 					{{ form_widget(fax_form) }}  {{ form_errors(fax_form) }}
@@ -15,7 +15,11 @@
 					<input type="submit" />
 			</form>
 			<form method="link" action="{{ path('pos') }} "><input type="submit" value=" Skip fax configuration"></form>
-
+			<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
 		</div>
+		<aside class="summary">
+			<h2>Summary</h2>
+			{{summary.printUserXML}}
+		</aside>
 
     </body>

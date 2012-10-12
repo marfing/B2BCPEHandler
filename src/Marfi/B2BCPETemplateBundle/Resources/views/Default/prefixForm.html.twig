@@ -2,12 +2,12 @@
 
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Cli list configuration</title>
+		<title>Prefix configuration</title>
 		<link rel="stylesheet" href="/css/Style1.css" />
 	</head>
   
 	<body>
-		<div class="wrap">
+{#		<div class="wrap">
 			<h2>Cli list configuration ({{servicetype}} configuration)</h2>
 			{% if servicetype == 'fax' %}
 				<form action="{{ path('faxcli') }}" method="post" {{ form_enctype(list_form) }}>
@@ -26,7 +26,7 @@
 			{% endif %}
 			<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
 		</div>
-		<aside class="summary">
+	#}	<aside class="summary">
 			<h2>Summary</h2>
 			{{summary.printUserXML}}
 		</aside>

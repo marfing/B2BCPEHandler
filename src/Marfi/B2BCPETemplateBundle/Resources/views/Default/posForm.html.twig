@@ -7,15 +7,18 @@
 	</head>
   
 	<body>
-		<div class="central">
+		<div class="wrap">
 			<h2>POS service configuration</h2>
 			<form action="{{ path('pos') }}" method="post" {{ form_enctype(pos_form) }}>
-					{{ form_widget(pos_form) }}  {{ form_errors(pos_form) }}
+					{{ form_widget(pos_form) }}  {{ form_errors(pos_form) }}  {{error_msg}}
 				<br>
 					<input type="submit" />
 			</form>
 			<form method="link" action="{{ path('prefix') }} "><input type="submit" value=" Skip POS configuration"></form>
-
+			<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
 		</div>
-
+		<aside class="summary">
+			<h2>Summary</h2>
+			{{summary.printUserXML}}
+		</aside>
     </body>

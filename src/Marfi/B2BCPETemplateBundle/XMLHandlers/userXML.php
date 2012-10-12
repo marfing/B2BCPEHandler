@@ -19,6 +19,10 @@ class userXML
 	protected $multinumbersArray;
 	protected $multinumberPacketsCounter = 0; //max 4
 	protected $cliList = array();
+	protected $hasFax = false;
+	protected $faxCliArray = array();
+	protected $hasPos= false;
+	protected $posCliArray = array();
 	
 	public function __construct($vendor, $model, $simcalls, $customerid){
 		$this->vendorName = $vendor;
@@ -41,8 +45,9 @@ class userXML
 	}
 	public function setSingleNumber($cliString, $portName){
 		$this->portsHandler->setSingleNumber($cliString, $portName);
-		$this->cliList[]=$cliString;
-		}
+		if(!$this->isOneOfMyCli($cliString))
+			$this->cliList[]=$cliString;
+	}
 	public function getSingleNumbersArray(){return $this->portsHandler->getSingleNumbersArray();}
 	public function setGnr($root, $did, $digits, $portName){
 		$this->hasGnr = true;
@@ -80,13 +85,29 @@ class userXML
 				} echo "</ul></td></tr></table>";
 			} echo "</table>";
 		}
+		if($this->hasFax || $this->hasPos){
+			echo "<table border=\"1\"><tr><td>Services</tr></td>";
+			if($this->hasFax){
+				echo "<tr><td>FAX service cli list</td><td><ul>";
+				foreach ($this->faxCliArray as $cli) echo "<li>" .$cli. "</li>";
+				echo "</ul></tr></td>";
+			}
+			if($this->hasPos){
+				echo "<tr><td>POS service cli list</td><td><ul>";
+				foreach ($this->posCliArray as $cli) echo "<li>" .$cli. "</li>";
+				echo "</ul></tr></td>";
+			}
+			echo "</table>";
+		}
 		//TO DO - aggiungere gli altri elementi man mano che li si crea
 	}
 	public function printUserXMLOutside(){return $this->portsHandler->getPrintPorts();}
 	public function setMultinumber($bind, $portsnamearray, $clilist){ 		
 		$this->multinumbersArray[] = new multiNumber($bind, $portsnamearray, $clilist);
 		$this->multinumberPacketsCounter++;
-		foreach ($clilist as $cli) $this->cliList[]=$cli;
+		foreach ($clilist as $cli) 
+			if(!$this->isOneOfMyCli($cliString))
+				$this->cliList[]=$cli;
 	}
 	public function multinumberPacketsLimitReached(){	return ($this->multinumberPacketsCounter < 4) ? false : true; 	}
 	public function isOneOfMyCli($cli){
@@ -116,6 +137,36 @@ class userXML
 		if($this->hasGnr)
 			$counter = $counter+pow(10,$this->gnrExtension-1);
 		return $counter;}
+	public function howManyCliForServices(){
+		$counter = count($this->cliList);
+		echo "<br>Counter: " .print_r($this->cliList);
+		echo "<br>userXML::Single & multi CLI configured: " .$counter;
+		if($this->hasGnr) $counter = $counter+pow(10,$this->gnrExtension-1);
+		$service = 0;
+		echo "<br>userXML::CLI configured: " .$counter;
+		if($this->hasFax) $service = $service + count($this->faxCliArray);
+		if($this->hasPos) $service = $service + count($this->faxPosArray);
+		echo "<br>userXML::Servicecli used: " .$service;
+		return $counter-$service;	
+	}
+	public function isGoodForService($cli){return (($this->isOneOfMyCli($cli) && !$this->hasAService($cli)));}
+	public function setFax($cliArray){
+		$this->faxCliArray = $cliArray;
+		$this->hasFax = true;
+		}
+	public function setPos($cliArray){
+		$this->posCliArray = $cliArray;
+		$this->hasPos = true;
+		}
+	public function hasAService($cli){
+		if($this->hasFax)
+			foreach($this->faxCliArray as $mycli)
+				if($mycli == $cli) return true;
+		if($this->hasPos)
+			foreach($this->faxPosArray as $mycli)
+				if($mycli == $cli) return true;
+		return false;
+	}
 }
 
 class userXMLportsHandler
