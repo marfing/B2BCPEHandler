@@ -56,6 +56,7 @@ class MultinumberController extends Controller
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
+				echo "MultinumberController::index: " .var_dump($task->getCliList()). "<br><br>";
 				$xmlUser->setMultinumber($task->getBind(), $task->getPortList(), $task->getCliList());
 				return $this->redirect($this->generateUrl('newpui', array('filename' => 'newpui')));
 			}

@@ -2,23 +2,22 @@
 
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>POS service configuration</title>
+		<title>Prefix configuration for port {{port}}</title>
 		<link rel="stylesheet" href="/css/Style1.css" />
 	</head>
-  
 	<body>
 		<div class="wrap">
-			<h2>POS service configuration</h2>
-			<form action="{{ path('pos') }}" method="post" {{ form_enctype(pos_form) }}>
-					{{ form_widget(pos_form) }}  {{ form_errors(pos_form) }}  {{error_msg}}
+			<h2>Prefix configuration for port {{portname}}</h2>
+			<form action="{{ path('prefixcreation', {'portname' : portname}) }}" method="post" {{ form_enctype(prefixcreation_form) }}>
+					{{ form_widget(prefixcreation_form) }}  {{ form_errors(prefixcreation_form) }}
 				<br>
 					<input type="submit" />
 			</form>
-			<form method="link" action="{{ path('prefixportlist') }} "><input type="submit" value=" Skip POS configuration"></form>
 			<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
 		</div>
 		<aside class="summary">
 			<h2>Summary</h2>
 			{{summary.printUserXML}}
 		</aside>
+
     </body>

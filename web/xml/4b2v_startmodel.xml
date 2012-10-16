@@ -9,12 +9,10 @@
 					<DID enabled="boolean" extensiondigits="digitNumbers" />
 				</GNR>
 				<incoming_prefix enabled="boolean">
-					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
-					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<prefix type="add|del" side="caller|called">value</prefix>
 				</incoming_prefix>
 				<outgoing_prefix enabled="boolean">
-					<called enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
-					<caller enabled="boolean" add_prefix="integer" del_prefix="integer" /> <!--uno solo tra add o del -->
+					<prefix type="add|del" side="caller|called">value</prefix>
 				</outgoing_prefix>
 			</port>
 			<port name="5/1" type="BRI" voice_enabled="boolean" multipoint="boolean" PoBRI="boolean">

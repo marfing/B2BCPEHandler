@@ -52,9 +52,13 @@ poscli:
     pattern:  /Model/poscli/{howmany}
     defaults: { _controller: MarfiB2BCPETemplateBundle:Poscli:index, howmany: 0}
 
-prefix:
-    pattern:  /Model/prefix
-    defaults: { _controller: MarfiB2BCPETemplateBundle:Prefix:index}
+prefixportlist:
+    pattern:  /Model/prefixportlist
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Prefixportlist:index}
+
+prefixcreation:
+    pattern:  /Model/prefixcreation/{portname}
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Prefixcreation:index, portname: empty}
 
 #route richiamata dal redirect dentro il defaultController dopo aver scelto il modello
 modelroute:

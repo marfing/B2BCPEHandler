@@ -28,6 +28,7 @@ class SinglenumberController extends Controller
 																	'error_bubbling'=>true));
 		foreach ($xmlUser->getPortNamesArrayWithoutSingleNumber() as $value){	
 			$checkBoxName = $value;
+			//echo "SinglenumberController::index - Adding port " .$value. "to single number from<br>";
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 
 		}
 		$checkList['label'] = 'Check port list';

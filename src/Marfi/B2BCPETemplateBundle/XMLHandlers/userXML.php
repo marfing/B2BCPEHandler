@@ -58,6 +58,7 @@ class userXML
 	public function hasGnr(){return $this->hasGnr;}
 	public function getPortNamesArray(){ return $this->portsHandler->getPortNamesArray();}
 	public function getPortNamesArrayWithoutSingleNumber(){ 	return $this->portsHandler->getPortNamesArrayWithoutSingleNumber();}
+	public function hasPortsWithoutSingleNumberAvailable(){	return  count($this->portsHandler->getPortNamesArrayWithoutSingleNumber())>0;}
 	public function getBRIPortNamesArray(){ return $this->portsHandler->getBRIPortNamesArray();}
 	public function hasBRIPorts(){return $this->portsHandler->hasBRIPorts();}
 	public function getNumberOfBRIPorts(){return $this->portsHandler->getNumberOfBRIPorts();}
@@ -103,10 +104,11 @@ class userXML
 	}
 	public function printUserXMLOutside(){return $this->portsHandler->getPrintPorts();}
 	public function setMultinumber($bind, $portsnamearray, $clilist){ 		
+		echo "userXML::setMultinumber - clilist: " .var_dump($clilist). "<br><br>";
 		$this->multinumbersArray[] = new multiNumber($bind, $portsnamearray, $clilist);
 		$this->multinumberPacketsCounter++;
 		foreach ($clilist as $cli) 
-			if(!$this->isOneOfMyCli($cliString))
+			if(!$this->isOneOfMyCli($cli))
 				$this->cliList[]=$cli;
 	}
 	public function multinumberPacketsLimitReached(){	return ($this->multinumberPacketsCounter < 4) ? false : true; 	}
@@ -290,13 +292,16 @@ class userXMLportsHandler
 		return $portNamesArray;
 	}
 	public function getPortNamesArrayWithoutSingleNumber(){
+		$portNameArray = array();
 		foreach ($this->portsArray as $port){
-			if(!$port->hasSingleNumber())
-				$portNamesArray[] = $port->getName();
+			if(!$port->hasSingleNumber()){
+				$portNameArray[] = $port->getName();
+			}
 		}
-		return $portNamesArray;
+		return $portNameArray;
 	}
 	public function getBRIPortNamesArray(){
+		$portNamesArray = array();
 		if($this->hasBRIPorts()){
 			foreach ($this->portsArray as $port)
 				if($port->isBRI())
@@ -349,22 +354,11 @@ class userXMLport
 		if($name == $this->name) return true;
 		else return false;
 	}
-/*	public function printPort(){
-		echo "Port name: " . $this->name. "<br>";
-		echo "Port type: " .$this->type->getTypeString(). "<br>";
-		echo "Port Mode: ";
-		if($this->multipointMode && $this->isBRI()) 	echo "point-to-multipoint<br>";
-		else 	echo "point-to-point<br>";
-		echo "Port PoBRI: ";
-		if($this->pobri) 	echo "enabled<br>";
-		else 	echo "disabled<br>";
-	}*/
 	public function getName(){ return $this->name; }
 	public function getTypeString(){return (string)$this->typeString;}
 	public function hasPoBRI(){return $this->pobri;}
 	public function isBRI(){ return ($this->typeString == 'BRI'); }
 	public function setSingleNumber($cliString){
-		//echo "<br>userXMLport::setSingleNumber: " .$cliString. " port: " .$this->name ;
 		$this->singleNumber->setCli($cliString);
 		$this->hasSingleNumber = true;
 	}
@@ -383,8 +377,7 @@ class userXMLport
 class prefixRule
 {
 	protected $enabled = false;
-	protected $callerPrefix;
-	protected $calledPrefix;
+	protected $prefix;
 	protected $isIncoming=false;
 	
 	public function __construct($isincoming){

@@ -19,7 +19,8 @@ class NewpuiController extends Controller
 		$xmlUser = $session->get('userxml');
 		
 		$task = new newPuiTask();
-		$checkList['choices']['singlenumber']='Single Number';
+		if($xmlUser->hasPortsWithoutSingleNumberAvailable())
+			$checkList['choices']['singlenumber']='Single Number';
 		if($xmlUser->hasBRIPorts()){
 			if(!$xmlUser->multinumberPacketsLimitReached())
 				$checkList['choices']['multinumber']='Multi Number';

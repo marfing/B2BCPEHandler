@@ -66,8 +66,8 @@ class MultipointController extends Controller
 						$nextURL = $this->generateUrl('newpui', array('filename' => 'newpui'));
 						echo "<div class=\"wrap\"><h2 style=\"color:red\">Summary</h2>";
 						$responsepage = "<p><form method=\"link\" action=\"".$nextURL. "\"><input type=\"submit\" value=\" Next\"></form></p></div>";
-						$this->userXMLModel->printUserXML();
-						return new Response($responsepage);
+						return $this->redirect($this->generateUrl('newpui', array('filename' => 'newpui')));
+//						return new Response($responsepage);
 					}
 				}  // GET
 					return $this->render('MarfiB2BCPETemplateBundle:Default:multipointForm.html.twig', 

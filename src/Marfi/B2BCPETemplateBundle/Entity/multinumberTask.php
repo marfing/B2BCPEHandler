@@ -44,18 +44,20 @@ class MultinumberTask{
 		echo "</td></tr></table>";	
 	}
 	public function getCliList(){
-		if(!empty($this->cli1))
-			$this->cliList[] = $this->cli1;
-		if(!empty($this->cli2))
-			$this->cliList[] = $this->cli2;
-		if(!empty($this->cli3))
-			$this->cliList[] = $this->cli3;
-		if(!empty($this->cli4))
-			$this->cliList[] = $this->cli4;
-		if(!empty($this->cli5))
-			$this->cliList[] = $this->cli5;
-		if(!empty($this->cli6))
-			$this->cliList[] = $this->cli6;
+		if(empty($this->cliList)){
+			if(!empty($this->cli1))
+				$this->cliList[] = $this->cli1;
+			if(!empty($this->cli2))
+				$this->cliList[] = $this->cli2;
+			if(!empty($this->cli3))
+				$this->cliList[] = $this->cli3;
+			if(!empty($this->cli4))
+				$this->cliList[] = $this->cli4;
+			if(!empty($this->cli5))
+				$this->cliList[] = $this->cli5;
+			if(!empty($this->cli6))
+				$this->cliList[] = $this->cli6;
+		}
 		return $this->cliList;
 	}
 	public function isCliAlreadyUsed(){
