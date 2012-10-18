@@ -60,6 +60,14 @@ prefixcreation:
     pattern:  /Model/prefixcreation/{portname}
     defaults: { _controller: MarfiB2BCPETemplateBundle:Prefixcreation:index, portname: empty}
 
+pobri:
+    pattern:  /Model/pobri/
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Pobri:index}
+
+backup:
+    pattern:  /Model/backup/
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Backup:index}
+
 #route richiamata dal redirect dentro il defaultController dopo aver scelto il modello
 modelroute:
     pattern:  /Model/{filename}
@@ -71,3 +79,6 @@ customerid_check:
     pattern:  /Model/{filename}
     defaults: { _controller: MarfiB2BCPETemplateBundle:Model:index, filename: empty }
 
+summary:
+    pattern:  /Model/summary/
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Summary:index}

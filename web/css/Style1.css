@@ -11,20 +11,11 @@ body {
 	font-size: 10px
 }
 
-/*table.summary td{
-	font-size: 11px;
-}*/
-
-td.form{
-	font-size: 16px;
-}
-
-table.gnr{
-	font-size: 11px
-}
+td.form{ font-size: 16px; }
+table.gnr{ font-size: 11px }
 
 .wrap {
-    width: 50%;
+    width: 42%;
     margin: auto;
 	font-size: 14px;
 	float: right;
@@ -36,16 +27,19 @@ table.gnr{
 	font-size: 14px;
 }
 
-aside.summary {
-	/*height: 400px;*/
+div.summary {
 	background:   lavender;
-	width: 45%;
+	width: 70%;
+	margin: auto;
+}
+
+aside.summary {
+	background:   lavender;
+	width: 55%;
 	float: left;
 }
 
-aside.summary td{
-	font-size: 11px;
-}
+aside.summary td{	font-size: 11px;}
 
 .error{
 	font-style: italic;

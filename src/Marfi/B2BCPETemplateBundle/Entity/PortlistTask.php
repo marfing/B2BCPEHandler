@@ -2,7 +2,7 @@
 namespace Marfi\B2BCPETemplateBundle\Entity;
 use Marfi\B2BCPETemplateBundle\XMLHandlers\userXML;
 
-class PrefixportlistTask{
+class PortlistTask{
 	
 	protected $portListNames;
 	protected $userXml;

@@ -7,8 +7,8 @@
 		<value>4</value>
 	</sim_calls>
 	<port_details number="4">
-		<port name="5/0" type="BRI" PoBRI="false"/>
-		<port name="5/1" type="BRI" PoBRI="false"/>
+		<port name="5/0" type="BRI" backup="false"/>
+		<port name="5/1" type="BRI" backup="false"/>
 		<port name="5/2" type="POTS"/>
 		<port name="5/3" type="POTS"/>
 	</port_details>

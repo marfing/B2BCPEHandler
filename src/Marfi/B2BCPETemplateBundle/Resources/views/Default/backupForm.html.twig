@@ -1,0 +1,24 @@
+{# qui si definisce come formattare il form con nome indicato in form_widget e con route che rimanda al controller definita in path #}
+
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+				<title>Backup configuration</title>
+		<link rel="stylesheet" href="/css/Style1.css" />
+	</head>
+  
+	<body>
+		<div class="wrap">
+				<h2>Backup configuration</h2>
+				<p>Da spostare subito dopo le sim calls per eliminare la porta dalla configurazione delle PUI</p>
+				<form action="{{ path('backup') }}" method="post" {{ form_enctype(backup_form) }}>
+					{{ form_widget(backup_form) }}  {{ form_errors(backup_form) }}
+				<br>
+			<input type="submit" />
+			</form>
+			<form method="link" action="{{ path('summary') }} "><input type="submit" value=" Skip prefix configuration"></form>
+		</div>
+		<aside class="summary">
+			<h2>Summary</h2>
+			{{summary.printUserXML}}
+		</aside>
+    </body>

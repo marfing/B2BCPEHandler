@@ -2,18 +2,43 @@
 
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Prefix port configuration</title>
+			{% if nextpage == 'prefixportlist' %}
+				<title>Prefix port configuration</title>
+			{% endif %}
+			{% if nextpage == 'pobri' %}
+				<title>PoBRI configuration</title>
+			{% endif %}
 		<link rel="stylesheet" href="/css/Style1.css" />
 	</head>
   
 	<body>
 		<div class="wrap">
-			<h2>Prefix port configuration</h2>
-			<form action="{{ path('prefixportlist') }}" method="post" {{ form_enctype(prefixportlist_form) }}>
-					{{ form_widget(prefixportlist_form) }}  {{ form_errors(prefixportlist_form) }}
+			{% if nextpage == 'prefixportlist' %}
+				<h2>Prefix port configuration</h2>
+			{% endif %}
+			{% if nextpage == 'pobri' %}
+				<h2>PoBRI configuration</h2>
+			{% endif %}
+			{% if nextpage == 'prefixportlist' %}
+				<form action="{{ path('prefixportlist') }}" method="post" {{ form_enctype(portlist_form) }}>
+			{% endif %}
+			{% if nextpage == 'pobri' %}
+				<form action="{{ path('pobri') }}" method="post" {{ form_enctype(portlist_form) }}>
+			{% endif %}
+					{{ form_widget(portlist_form) }}  {{ form_errors(portlist_form) }}
 				<br>
-					<input type="submit" />
+			{% if nextpage == 'pobri' %}
+				<p>In case of OneAccess valid for all ports</p>
+			{% endif %}
+
+			<input type="submit" />
 			</form>
+			{% if nextpage == 'prefixportlist' %}
+				<form method="link" action="{{ path('pobri') }} "><input type="submit" value=" Skip prefix configuration"></form>
+			{% endif %}
+			{% if nextpage == 'pobri' %}
+				<form method="link" action="{{ path('backup') }} "><input type="submit" value=" Skip PoBRI configuration"></form>
+			{% endif %}
 			<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
 		</div>
 		<aside class="summary">

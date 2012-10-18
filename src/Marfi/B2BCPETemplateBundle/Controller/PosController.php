@@ -24,11 +24,10 @@ class PosController extends Controller
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
-//				echo "Form is valid";
 				if($task->getEnable())
 					return $this->redirect($this->generateUrl('poscli', array('howmany' =>$task->getHowMany())));
 				else
-					return $this->redirect($this->generateUrl('prefix', array('filename' =>'prefix')));
+					return $this->redirect($this->generateUrl('prefixportlist', array('filename' =>'prefix')));
 			}
 		}
 		return $this->render('MarfiB2BCPETemplateBundle:Default:posForm.html.twig', array('pos_form' => $form->createView(),

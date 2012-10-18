@@ -7,13 +7,13 @@
 	</head>
 	<body>
 		<div class="wrap">
-			<h2>Prefix configuration for port {{portname}}</h2>
+			<h2>Prefix configuration for port {{port}}</h2>
 			<form action="{{ path('prefixcreation', {'portname' : portname}) }}" method="post" {{ form_enctype(prefixcreation_form) }}>
 					{{ form_widget(prefixcreation_form) }}  {{ form_errors(prefixcreation_form) }}
 				<br>
 					<input type="submit" />
 			</form>
-			<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
+			<form method="link" action="{{ path('pobri') }} "><input type="submit" value=" Skip prefix configuration"></form>
 		</div>
 		<aside class="summary">
 			<h2>Summary</h2>

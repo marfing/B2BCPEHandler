@@ -24,15 +24,7 @@ class DefaultController extends Controller
 			$this->session = $this->get('session');
 			$this->session->clear();
 			
-			/* test to be removed if it works
-			$testSession = new testSessionObject();
-			$testSession->name = 'marco';
-			$testSession->surname = 'figus';
-			
-			$this->session->set('test',  $testSession );
-			*/
 			$this->loadModelListXML();
-			
 			$this->createModelListForm();
 			
 			if ($request->getMethod() == 'POST'){
@@ -61,7 +53,6 @@ class DefaultController extends Controller
 				}
 			}
 			$cpeChoisesList['expanded'] = true;
-//			$cpeChoisesList['required'] = false;
 			$cpeChoisesList['multiple'] = false;
 			$this->cpeListForm->add('Model', 'choice', $cpeChoisesList);
 	}

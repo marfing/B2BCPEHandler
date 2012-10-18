@@ -18,9 +18,7 @@ class SimcallsController extends Controller
 		public function simcallsAction(Request $request)
 		{
 			$session = $this->get('session');		
-			//echo "<p stype=\"font-size:10px\">Filename: " .$session->get('filename'). "</p>";
 			$this->fileName = $session->get('filename');
-			//echo "CustomerID: " .$session->get('customerID'). "<br>";
 			$this->xmlHandler = new B2BCpeModelXmlHandler($this->fileName);
 			if($this->xmlHandler->fileExist()) 	{
 				if($this->xmlHandler->hasSimCalls()){
@@ -52,8 +50,6 @@ class SimcallsController extends Controller
 					return new Response($responsepage);	
 				}
 			} else  {
-//				echo "<h2>Sorry there is something wrong!!</h2>
-//						<p>The XML model file: " .$this->fileName. " is not correct or no more available</p>";
 				$nextURL = $this->generateUrl('MarfiB2BCPETemplateBundle_homepage');
 				$responsepage = "<h2 style=\"color:red\">Error!!</h2>
 											<p>Not valid or unexisting XML file: " .$this->fileName. "<br>Please check configuration XML file and press next to move back to start page </p>

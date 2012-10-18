@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
 
-class PrefixportlistController extends Controller
+class PobriController extends Controller
 {
 	
 	public function indexAction(Request $request)
@@ -21,13 +21,13 @@ class PrefixportlistController extends Controller
 		// TO DO  - aggiungere controllo su porte già configurate
 		
 		$task = new PortlistTask($xmlUser);
-		foreach ($xmlUser->getPortNamesArray() as $value){	
+		foreach ($xmlUser->getBRIPortNamesArray() as $value){	
 			$checkBoxName = $value;
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 
 		}
 		$checkList['label'] = 'Check port list';
 		$checkList['expanded'] = true;
-		$checkList['multiple'] = false;
+		$checkList['multiple'] = true;
 		$checkList['required'] = true;
 		$checkList['error_bubbling']=true;
 
@@ -36,15 +36,15 @@ class PrefixportlistController extends Controller
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
-				$port = str_replace('/','-',$task->getPortList());
-				return $this->redirect($this->generateUrl('prefixcreation', array('portname' => $port)));
+				$xmlUser->setPoBRI($task->getPortList());
+				$session->set('userxml',  $xmlUser );
+				return $this->redirect($this->generateUrl('backup'));
 			}
 		}
 		return $this->render('MarfiB2BCPETemplateBundle:Default:portListForm.html.twig', 
 								array('portlist_form' => $form->createView(),
 										'summary'=>$xmlUser,
-										'nextpage'=>'prefixportlist'));
-
+										'nextpage'=>'pobri'));
 	}
 }
 

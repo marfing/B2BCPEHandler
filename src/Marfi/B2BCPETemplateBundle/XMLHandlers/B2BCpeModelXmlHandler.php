@@ -2,8 +2,7 @@
 
 /** XML file example
  *
- * 
- * <?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <model_parameters>
 	<vendor>OneAccess</vendor>
 	<name>4b2v</name>
@@ -11,13 +10,18 @@
 		<value>6</value>
 		<value>8</value>
 	</sim_calls>
-	<port_details>
-		<number>6</number>
-		<PoBRI_port>5/3</PoBRI_port>
+	<port_details number="6">
+		<port name="5/0" type="BRI" backup="false"/>
+		<port name="5/1" type="BRI" backup="false"/>
+		<port name="5/2" type="BRI" backup="false"/>
+		<port name="5/3" type="BRI" backup="true"/>
+		<port name="5/4" type="POTS"/>
+		<port name="5/5" type="POTS" />
 	</port_details>
 </model_parameters>
  
  */
+
 
 namespace Marfi\B2BCPETemplateBundle\XMLHandlers;
 
@@ -31,7 +35,7 @@ class B2BCpeModelXmlHandler
 	protected $briPortsNumber =0;
 	protected $potsPortsNumber=0;
 	protected $priPortsNumber=0;
-	protected $pobriPort = "no PoBRI port";
+	protected $backupPort = "no backup port";
 	protected $fileExist = false;
 	protected $portsArray;
 	protected $hasSimCalls = false;
@@ -82,21 +86,19 @@ class B2BCpeModelXmlHandler
 			}
 			if($this->hasPortDetails){
 				$this->portsNumber = $xml->port_details['number'];
-				//echo "B2BCpeModelXmlHandler::loadXMLFile - portsNumber: " .$this->portsNumber. "<br>";
 				foreach ($xml->port_details->port as $value){
-					//echo "B2BCpeModelXmlHandler::loadXMLFile - creating port:" .$value['name']. "<br>PoBRI: " .$value['PoBRI']. " <br>Type: " .$value['type']. "<br>";
-					$boolValue = ($value['PoBRI'] == 'true') ? true : false;
+					$boolValue = ($value['backup'] == 'true') ? true : false;
 					$port = new modelPort((string)$value['name'], $boolValue, (string)$value['type']);
 					$this->portsArray[] = $port;
 					if($port->isBRI()) $this->briPortsNumber++;
 					elseif ($port->isPOTS())$this->potsPortsNumber++; 
 					elseif ($port->isPRI()) $this->priPortsNumber++; 
-					if($value['PoBRI'] && $value['type']=='BRI') 
-						$this->pobriPort = $value['name'];
+					if($value['backup'] && $value['type']=='BRI') 
+						$this->backupPort = $value['name'];
 				}
 			}
 			else {
-				echo "<h1>XML File ERROR!! - Missing port details tag</h1><p> &ltport_details&gt<br>&ltport name=\"name\" type=\"TYPE\" PoBRI=\"bool\" /&gt<br>&lt/port_details&gt </p>";
+				echo "<h1>XML File ERROR!! - Missing port details tag</h1><p> &ltport_details&gt<br>&ltport name=\"name\" type=\"TYPE\" backup=\"bool\" /&gt<br>&lt/port_details&gt </p>";
 				return false;
 			}
 			$this->fileExist = true;
@@ -113,7 +115,7 @@ class B2BCpeModelXmlHandler
 		foreach ($this->simCallsArray as $value)
 			echo "<li>Sim calls: " . $value . "</li>";
 		echo "<li>Ports number: " .  $this->portsNumber . "</li>" .
-				"<li>PoBRI port: " . $this->pobriPort . "</li>";
+				"<li>Backup port: " . $this->backupPort . "</li>";
 		echo "<li>BRI ports number: " .$this->briPortsNumber. "</li>";
 		echo "<li>POTS ports number: " .$this->potsPortsNumber. "</li>";
 		echo "<li>PRI ports number: " .$this->priPortsNumber. "</li></ul>";
@@ -149,31 +151,28 @@ class B2BCpeModelXmlHandler
 class modelPort
 {
 	protected $name;
-	protected $pobri = false;
+	protected $backup = false;
 	protected $type;
 	
 	public function __construct($name, $enable, $type){
 		$this->setName($name);
 		$this->setType($type);
-		if($this->type->getTypeString() == 'BRI') {$this->setPoBRI($enable);} else {$this->pobri=false;}
-		if(($this->type->getTypeString() != 'BRI') && $this->pobri){
-			echo "<h2 style=\"color:red\">ERROR - port " .$name. " cannot have PoBRI because is not a BRI port!!!!!!!</h2>Please check XML model file and correct it!!";
+		if($this->type->getTypeString() == 'BRI') {$this->setBackup($enable);} else {$this->backup=false;}
+		if(($this->type->getTypeString() != 'BRI') && $this->backup){
+			echo "<h2 style=\"color:red\">ERROR - port " .$name. " cannot have backup because it is not a BRI port!!!!!!!</h2>Please check XML model file and correct it!!";
 		}
 	}
 	public function setName($name){ $this->name = $name;}
-	public function setPoBRI($enable){ 	
-		//echo "modelPort::setPoBRI - PoBRI: " .$enable."<br>";
-		$this->pobri = $enable;}
+	public function setBackup($enable){ $this->backup = $enable;}
 	public function setType($type){ $this->type = new portType($type); }
 	public function getName(){ return (string)$this->name;}
-	public function hasPoBRI(){ 	return (string)$this->pobri;}
+	public function hasBackup(){ 	return (string)$this->backup;}
 	public function getTypeString(){ return $this->type->getTypeString();}
 	public function printPort(){
-		//echo "modelPort::printPort - \$pobri: " .var_dump($this->pobri). "<br>";
 		echo "<table border=\"1\"><tr><td>" .$this->getName() . "</td>";
-		if($this->pobri)
-			{echo "<td>PoBRI Enabled</td>";} 
-		else {echo "<td>PoBRI Disabled</td>";}
+		if($this->backup)
+			{echo "<td>Backup Enabled</td>";} 
+		else {echo "<td>Backup Disabled</td>";}
 		echo "<td>" . $this->type->getTypeString(). "</td>";
 		echo "</tr></table>";
 	}
@@ -190,11 +189,9 @@ class portType {
 	public function __construct($type){
 		if($this->checkType($type)){
 			$this->typeString = $type;
-			//echo "portType::__constructor: " .$this->typeString. "<br>";
 		} else echo"<h3>portType::ERROR - WRONG PORT TYPE!! </h3>";
 	}
 	public function checkType($typestring){
-		//echo "portType::checkType: " .$typestring. "<br>";
 		foreach($this->typeArray as $value)
 			if($value == $typestring)
 				return true;

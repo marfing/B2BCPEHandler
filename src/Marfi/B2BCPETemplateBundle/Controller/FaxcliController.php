@@ -43,7 +43,6 @@ class FaxCliController extends Controller
 																'summary'=>$xmlUser));
 				}
 			}
-			//inserire qui l'inserimento del servizio nello userXML
 			$xmlUser->setFax($data);
 			$session->set('userxml',  $xmlUser );
 			return $this->redirect($this->generateUrl('pos', array('filename' =>'pos')));
