@@ -2,14 +2,14 @@
 
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Prefix configuration for port {{port}}</title>
+		<title>Prefix configuration </title>
 		<link rel="stylesheet" href="/css/Style1.css" />
 	</head>
 	<body>
 		<div class="wrap">
-			<h2>Prefix configuration for port {{port}}</h2>
-			<form action="{{ path('prefixcreation', {'portname' : portname}) }}" method="post" {{ form_enctype(prefixcreation_form) }}>
-					{{ form_widget(prefixcreation_form) }}  {{ form_errors(prefixcreation_form) }}
+			<h2>Prefix configuration </h2>
+			<form action="{{ path('prefix') }}" method="post" {{ form_enctype(prefix_form) }}>
+					{{ form_widget(prefix_form) }}  {{ form_errors(prefix_form) }}
 				<br>
 					<input type="submit" />
 			</form>

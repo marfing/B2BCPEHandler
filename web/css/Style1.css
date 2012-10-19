@@ -17,9 +17,12 @@ table.gnr{ font-size: 11px }
 .wrap {
     width: 42%;
     margin: auto;
-	font-size: 14px;
+	font-size: 12px;
 	float: right;
 }
+
+div.wrap td{	font-size: 11px;}
+
 
 .central {
     width: 50%;
@@ -31,7 +34,13 @@ div.summary {
 	background:   lavender;
 	width: 70%;
 	margin: auto;
+	font-size: 11px;
 }
+
+div.summary td{
+	font-size: 11px;
+}
+
 
 aside.summary {
 	background:   lavender;

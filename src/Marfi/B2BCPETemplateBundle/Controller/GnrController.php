@@ -35,7 +35,7 @@ class GnrController extends Controller
 																				'required' => true,
 																				'error_bubbling'=>true));
 		
-		foreach ($xmlUser->getBRIPortNamesArray() as $value){	
+		foreach ($xmlUser->getNoBackupBRIPortNamesArray() as $value){	
 			$checkBoxName = $value;
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 
 		}

@@ -61,7 +61,12 @@ Marfi\B2BCPETemplateBundle\Entity\PortlistTask:
             - NotBlank: {message: "You must select at least one port"} 
             
 Marfi\B2BCPETemplateBundle\Entity\PrefixcreationTask:
+      properties:
+        portList:
+            - NotBlank: {message: "You must select at least one port"} 
       getters:
         FormOk:
           - "True": {message: "Check prefix - must be a digit number with max 4 digits - check all type are configured for inserted prefixes!!"}
+        HasPrefix:
+          - "True": {message: "At least one prefix must be configured!!"}
             

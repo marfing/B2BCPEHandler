@@ -16,12 +16,13 @@
 					{{ form_widget(newpui_form) }} 
 					<br><input type="submit" value="Configure PUI"/>
 			</form>
-			<form method="link" action="{{ path('fax') }} "><input type="submit" value=" No more PUI configuration"></form>
+			{% if summary.hasPUI %}
+				<form method="link" action="{{ path('fax') }} "><input type="submit" value=" No more PUI configuration"></form>
+			{% endif %}
 		</div>
 		<aside class="summary">
 			<h2>Summary</h2>
 			{{summary.printUserXML}}
 		</aside>
-
     </body>
 {# empty Twig template #}

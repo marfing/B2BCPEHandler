@@ -1,0 +1,26 @@
+{# qui si definisce come formattare il form con nome indicato in form_widget e con route che rimanda al controller definita in path #}
+
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>PoBRI configuration</title>
+		<link rel="stylesheet" href="/css/Style1.css" />
+	</head>
+  
+	<body>
+		<div class="wrap">
+			<h2>PoBRI configuration</h2>
+			<form action="{{ path('pobri') }}" method="post" {{ form_enctype(portlist_form) }}>
+					{{ form_widget(portlist_form) }}  {{ form_errors(portlist_form) }}
+			<br>
+			<p>In case of OneAccess valid for all ports</p>
+
+			<input type="submit" />
+			</form>
+				<form method="link" action="{{ path('summary') }} "><input type="submit" value=" Skip PoBRI configuration"></form>
+				<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
+		</div>
+		<aside class="summary">
+			<h2>Summary</h2>
+			{{summary.printUserXML}}
+		</aside>
+    </body>

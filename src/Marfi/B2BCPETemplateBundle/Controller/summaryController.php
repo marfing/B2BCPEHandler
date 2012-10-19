@@ -16,7 +16,7 @@ class SummaryController extends Controller
 	{
 		$session = $this->get('session');		
 		$xmlUser = 	$session->get('userxml');
-		return $this->render('MarfiB2BCPETemplateBundle:Default:summary.html.twig', $xmlUser->printUserXML());
+		return $this->render('MarfiB2BCPETemplateBundle:Default:summary.html.twig', array('summary'=>$xmlUser));
 	}
 }
 

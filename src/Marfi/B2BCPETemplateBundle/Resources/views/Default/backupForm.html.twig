@@ -8,14 +8,14 @@
   
 	<body>
 		<div class="wrap">
-				<h2>Backup configuration</h2>
-				<p>Da spostare subito dopo le sim calls per eliminare la porta dalla configurazione delle PUI</p>
-				<form action="{{ path('backup') }}" method="post" {{ form_enctype(backup_form) }}>
+			<h2>Backup configuration</h2>
+			<form action="{{ path('backup') }}" method="post" {{ form_enctype(backup_form) }}>
 					{{ form_widget(backup_form) }}  {{ form_errors(backup_form) }}
 				<br>
-			<input type="submit" />
+				<p>Remember that this port will not be available for any PUI configuration or other service</p>
+				<input type="submit" />
 			</form>
-			<form method="link" action="{{ path('summary') }} "><input type="submit" value=" Skip prefix configuration"></form>
+			<form method="link" action="{{ path('multipoint') }} "><input type="submit" value=" Skip backup configuration"></form>
 		</div>
 		<aside class="summary">
 			<h2>Summary</h2>

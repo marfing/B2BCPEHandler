@@ -24,7 +24,7 @@ class MultinumberController extends Controller
 							->add('bind','checkbox',array('label' => 'Bonding aggregation',
 																		'required' => false,
 																		'error_bubbling'=>true));
-		foreach ($xmlUser->getBRIPortNamesArray() as $value){	
+		foreach ($xmlUser->getNoBackupBRIPortNamesArray() as $value){	
 			$checkBoxName = $value;
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 
 		}

@@ -39,7 +39,8 @@ class SimcallsController extends Controller
 						$data = $simCallsForm->getData();
 						echo "<p>Sim calls: " .$data['SimCalls']. "</p>";
 						$session->set('simcalls', $data['SimCalls']);
-						return $this->redirect($this->generateUrl('multipoint', array('filename' => 'multipoint')));
+//						return $this->redirect($this->generateUrl('multipoint', array('filename' => 'multipoint')));
+						return $this->redirect($this->generateUrl('backup'));
 					} else return $this->render('MarfiB2BCPETemplateBundle:Default:simcallsForm.html.twig', 
 										array('simcalls_form' => $simCallsForm->createView(),));
 				}  else {// xml file doesn't have sim calls tag!!!

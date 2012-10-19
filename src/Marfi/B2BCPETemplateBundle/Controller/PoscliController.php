@@ -45,7 +45,7 @@ class PosCliController extends Controller
 			}
 			$xmlUser->setPos($data);
 			$session->set('userxml',  $xmlUser );
-			return $this->redirect($this->generateUrl('prefixportlist', array('filename' =>'prefix')));
+			return $this->redirect($this->generateUrl('prefix', array('filename' =>'prefix')));
 		}
 		return $this->render('MarfiB2BCPETemplateBundle:Default:cliListForm.html.twig', array('list_form' => $form->createView(),
 																																		'error_msg'=>'',

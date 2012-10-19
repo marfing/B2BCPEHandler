@@ -10,18 +10,28 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
 
-class PrefixcreationController extends Controller
+class PrefixController extends Controller
 {
 	
-	public function indexAction(Request $request, $portname)
+	public function indexAction(Request $request)
 	{
 		$session = $this->get('session');		
 		$xmlUser = 	$session->get('userxml');
-		// TO DO  - aggiungere controllo su porte già configurate
-		$port = str_replace('-','/',$portname);
 
+		// TO DO  - aggiungere controllo su porte già configurate
+		
 		$task = new PrefixcreationTask($xmlUser);
-		$form = $this->createFormBuilder($task)
+		foreach ($xmlUser->getNoBackupPortNamesArray() as $value){	
+			$checkBoxName = $value;
+			$checkList['choices'][$checkBoxName] = $checkBoxName; 
+		}
+		$checkList['label'] = 'Check port list';
+		$checkList['expanded'] = true;
+		$checkList['multiple'] = true;
+		$checkList['required'] = true;
+		$checkList['error_bubbling']=true;
+
+		$form = $this->createFormBuilder($task)->add('portList', 'choice', $checkList)	
 							->add('incomingcaller','text', array('label'=>'Incoming caller prefix (from customer to CPE)',
 																				'required'=>false,
 																				'max_length'=>4))
@@ -57,24 +67,24 @@ class PrefixcreationController extends Controller
 																					'multiple'=>false))	->getForm();
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
+			//$task->printData();
 			if($form->isValid()){
-//				echo "port variable: " .$port. "  -- portname variable: " .$portname;
-//				echo "<br>task data: " .$task->printData(). "<br>";
-				if($task->hasIncomingPrefix())
-					$xmlUser->addIncomingPrefixToPort($port, $task->getIncomingCaller(), $task->getIncomingCallerType(),$task->getIncomingCalled(), $task->getIncomingCalledType());
-				if($task->hasOutgoingPrefix())
-					$xmlUser->addOutgoingPrefixToPort($port, $task->getOutgoingCaller(), $task->getOutgoingCallerType(),$task->getOutgoingCalled(), $task->getOutgoingCalledType());
+				if($task->hasIncomingPrefix()){
+					foreach ($task->getPortList() as $port)
+						$xmlUser->addIncomingPrefixToPort($port, $task->getIncomingCaller(), $task->getIncomingCallerType(),$task->getIncomingCalled(), $task->getIncomingCalledType());
+				}
+				if($task->hasOutgoingPrefix()){
+					foreach ($task->getPortList() as $port)
+						$xmlUser->addOutgoingPrefixToPort($port, $task->getOutgoingCaller(), $task->getOutgoingCallerType(),$task->getOutgoingCalled(), $task->getOutgoingCalledType());
+				}
 				$session->set('userxml',  $xmlUser );
-				return $this->redirect($this->generateUrl('prefixportlist'));			
 //				return new Response();
+				return $this->redirect($this->generateUrl('prefix'));			
 			}
-		}
-		return $this->render('MarfiB2BCPETemplateBundle:Default:prefixcreationForm.html.twig', 
-								array('prefixcreation_form' => $form->createView(),
-										'summary'=>$xmlUser,
-										'portname'=>$portname,
-										'port'=>$port));
-
+ 		}
+		return $this->render('MarfiB2BCPETemplateBundle:Default:prefixForm.html.twig', 
+								array('prefix_form' => $form->createView(),
+										'summary'=>$xmlUser));
 	}
 }
 

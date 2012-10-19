@@ -26,7 +26,7 @@ class SinglenumberController extends Controller
 						->add('bind','checkbox',array('label' => 'Bonding aggregation',
 																	'required' => false,
 																	'error_bubbling'=>true));
-		foreach ($xmlUser->getPortNamesArrayWithoutSingleNumber() as $value){	
+		foreach ($xmlUser->getNoBackupPortNamesArrayWithoutSingleNumber() as $value){	
 			$checkBoxName = $value;
 			//echo "SinglenumberController::index - Adding port " .$value. "to single number from<br>";
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 

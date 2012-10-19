@@ -21,7 +21,7 @@ class PobriController extends Controller
 		// TO DO  - aggiungere controllo su porte già configurate
 		
 		$task = new PortlistTask($xmlUser);
-		foreach ($xmlUser->getBRIPortNamesArray() as $value){	
+		foreach ($xmlUser->getNoBackupBRIPortNamesArray() as $value){	
 			$checkBoxName = $value;
 			$checkList['choices'][$checkBoxName] = $checkBoxName; 
 		}
@@ -37,14 +37,13 @@ class PobriController extends Controller
 			$form->bindRequest($request);
 			if($form->isValid()){
 				$xmlUser->setPoBRI($task->getPortList());
-				$session->set('userxml',  $xmlUser );
-				return $this->redirect($this->generateUrl('backup'));
+//				$session->set('userxml',  $xmlUser );
+				return $this->redirect($this->generateUrl('summary'));
 			}
 		}
-		return $this->render('MarfiB2BCPETemplateBundle:Default:portListForm.html.twig', 
+		return $this->render('MarfiB2BCPETemplateBundle:Default:pobriForm.html.twig', 
 								array('portlist_form' => $form->createView(),
-										'summary'=>$xmlUser,
-										'nextpage'=>'pobri'));
+										'summary'=>$xmlUser));
 	}
 }
 

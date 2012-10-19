@@ -52,13 +52,9 @@ poscli:
     pattern:  /Model/poscli/{howmany}
     defaults: { _controller: MarfiB2BCPETemplateBundle:Poscli:index, howmany: 0}
 
-prefixportlist:
-    pattern:  /Model/prefixportlist
-    defaults: { _controller: MarfiB2BCPETemplateBundle:Prefixportlist:index}
-
-prefixcreation:
-    pattern:  /Model/prefixcreation/{portname}
-    defaults: { _controller: MarfiB2BCPETemplateBundle:Prefixcreation:index, portname: empty}
+prefix:
+    pattern:  /Model/prefix
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Prefix:index}
 
 pobri:
     pattern:  /Model/pobri/
@@ -68,17 +64,22 @@ backup:
     pattern:  /Model/backup/
     defaults: { _controller: MarfiB2BCPETemplateBundle:Backup:index}
 
-#route richiamata dal redirect dentro il defaultController dopo aver scelto il modello
 modelroute:
     pattern:  /Model/{filename}
     defaults: { _controller: MarfiB2BCPETemplateBundle:Model:index, filename: empty }
     
-
-# route definita dentro customerForm.html.twig per gestire il POST del form per il setting del customerID
 customerid_check:
     pattern:  /Model/{filename}
     defaults: { _controller: MarfiB2BCPETemplateBundle:Model:index, filename: empty }
 
+userxml:
+    pattern:  /Model/userxml/
+    defaults: { _controller: MarfiB2BCPETemplateBundle:userXml:index}
+
 summary:
     pattern:  /Model/summary/
     defaults: { _controller: MarfiB2BCPETemplateBundle:Summary:index}
+
+xml:
+    pattern:  /Model/xml/
+    defaults: { _controller: MarfiB2BCPETemplateBundle:XML:index}
