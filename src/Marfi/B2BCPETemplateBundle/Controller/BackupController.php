@@ -35,13 +35,12 @@ class BackupController extends Controller
 		
 		$session = $this->get('session');		
 		$xmlUser = 	$session->get('userxml');
+		if($userXML->getBackupPort() == null)
+			return $this->redirect($this->generateUrl('multipoint', array('filename' => 'multipoint')));
 		$label = 'Enable backup in port ' .$userXML->getBackupPort();
 		$data = array();
 		$form = $this->createFormBuilder($data)->add('backup','checkbox', array('label'=>$label,
 																															'required'=>true))->getForm();
-		
-		//creare task che verifichi che la porta non sia stata usata conm qualche PUI, altrimenti non si può attivare il backup!!!
-		// oppure spostare questa configurazione subito dopo le sim calls per eliminare la porta dalla configurazione delle PUI
 		
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);

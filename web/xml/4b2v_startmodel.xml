@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <customer_id value="text">
 	<model vendor="OneAccess" model="4b2v">
-		<sim_calls values="6,8"/>
+		<sim_calls>6</sim_calls>
 		<ports number_of_ports="6">
 			<port name="5/0" type="BRI" voice_enabled="boolean" multipoint="boolean" PoBRI="boolean">
-				<single_number enabled="boolean" cli="e164"/> <!--only one for every port can exist-->
-				<GNR enabled="boolean" root="e164">
-					<DID enabled="boolean" extensiondigits="digitNumbers" />
-				</GNR>
+				<single_number>e164</single_number> <!--only one for every port can exist-->
+				<GNR root="e164" DID="boolean" extensiondigits="howmany"/>
 				<incoming_prefix enabled="boolean">
 					<prefix type="add|del" side="caller|called">value</prefix>
 				</incoming_prefix>

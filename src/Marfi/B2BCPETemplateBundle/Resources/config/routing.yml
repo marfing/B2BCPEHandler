@@ -80,6 +80,6 @@ summary:
     pattern:  /Model/summary/
     defaults: { _controller: MarfiB2BCPETemplateBundle:Summary:index}
 
-xml:
-    pattern:  /Model/xml/
-    defaults: { _controller: MarfiB2BCPETemplateBundle:XML:index}
+xmlcreation:
+    pattern:  /Model/xmlcreation/
+    defaults: { _controller: MarfiB2BCPETemplateBundle:XMLCreation:index}
