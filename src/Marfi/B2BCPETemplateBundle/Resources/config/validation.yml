@@ -42,13 +42,13 @@ Marfi\B2BCPETemplateBundle\Entity\MultinumberTask:
            
 Marfi\B2BCPETemplateBundle\Entity\EnableServiceTask:
       properties:
-        howMany:
-        - NotBlank: {message: "You must define how many CLI will have fax!!"}
         enable:
         - NotBlank: {message: "You must enable it!!"}
       getters:
         HowManyOk:
           - "True": {message: "You cannot have so many CLI - not enought CLI available!!"}
+        Correct:
+          - "True": {message: "If for all is not selected  at least one CLI must be configured!!"}
 
 Marfi\B2BCPETemplateBundle\Entity\MultipointTask:
       properties:

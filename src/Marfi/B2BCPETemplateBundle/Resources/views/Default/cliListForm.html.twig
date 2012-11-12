@@ -13,6 +13,8 @@
 				<form action="{{ path('faxcli') }}" method="post" {{ form_enctype(list_form) }}>
 			{% elseif servicetype == 'pos' %}
 				<form action="{{ path('poscli') }}" method="post" {{ form_enctype(list_form) }}>
+			{% elseif servicetype == 'clir' %}
+				<form action="{{ path('clircli') }}" method="post" {{ form_enctype(list_form) }}>
 			{% endif %}
 					{{ form_widget(list_form) }}  {{ form_errors(list_form) }}
 			<h5 class="error"> <br>  {{error_msg}}</h5>
@@ -22,7 +24,9 @@
 			{% if servicetype == 'fax' %}
 				<form method="link" action="{{ path('pos') }} "><input type="submit" value=" Skip {{servicetype}} configuration"></form>
 			{% elseif servicetype == 'pos' %}
-				<form method="link" action="{{ path('fax') }} "><input type="submit" value=" Skip {{servicetype}} configuration"></form>
+				<form method="link" action="{{ path('clir') }} "><input type="submit" value=" Skip {{servicetype}} configuration"></form>
+			{% elseif servicetype == 'clir' %}
+				<form method="link" action="{{ path('prefix') }} "><input type="submit" value=" Skip {{servicetype}} configuration"></form>
 			{% endif %}
 			<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
 		</div>

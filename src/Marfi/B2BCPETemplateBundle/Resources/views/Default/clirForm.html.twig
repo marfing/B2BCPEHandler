@@ -2,19 +2,19 @@
 
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>POS service configuration</title>
+		<title>CLIR service configuration</title>
 		<link rel="stylesheet" href="/css/Style1.css" />
 	</head>
   
 	<body>
 		<div class="wrap">
-			<h2>POS service configuration</h2>
-			<form action="{{ path('pos') }}" method="post" {{ form_enctype(pos_form) }}>
-					{{ form_widget(pos_form) }}  {{ form_errors(pos_form) }}  {{error_msg}}
+			<h2>CLIR service configuration</h2>
+			<form action="{{ path('clir') }}" method="post" {{ form_enctype(clir_form) }}>
+					{{ form_widget(clir_form) }}  {{ form_errors(clir_form) }}  {{error_msg}}
 				<br>
 					<input type="submit" />
 			</form>
-			<form method="link" action="{{ path('clir') }} "><input type="submit" value=" Skip POS configuration"></form>
+			<form method="link" action="{{ path('prefix') }} "><input type="submit" value=" Skip CLIR configuration"></form>
 			<form method="link" action="{{ path('newpui') }} "><input type="submit" value=" Back to PUI configuration"></form>
 		</div>
 		<aside class="summary">

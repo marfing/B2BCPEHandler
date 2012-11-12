@@ -27,7 +27,8 @@ class PosController extends Controller
 				if($task->getEnable())
 					return $this->redirect($this->generateUrl('poscli', array('howmany' =>$task->getHowMany())));
 				else
-					return $this->redirect($this->generateUrl('prefix', array('filename' =>'prefix')));
+					//return $this->redirect($this->generateUrl('prefix', array('filename' =>'prefix')));
+					return $this->redirect($this->generateUrl('clir', array('filename' =>'clir')));
 			}
 		}
 		return $this->render('MarfiB2BCPETemplateBundle:Default:posForm.html.twig', array('pos_form' => $form->createView(),

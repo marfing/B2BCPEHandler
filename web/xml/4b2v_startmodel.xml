@@ -4,13 +4,15 @@
 		<sim_calls>6</sim_calls>
 		<ports number_of_ports="6">
 			<port name="5/0" type="BRI" voice_enabled="boolean" multipoint="boolean" PoBRI="boolean">
-				<single_number>e164</single_number> <!--only one for every port can exist-->
-				<GNR root="e164" DID="boolean" extensiondigits="howmany"/>
+				<single_number enabled="boolean">e164</single_number> <!--only one for every port can exist-->
+				<GNR enabled="boolean" root="e164" DID="boolean" extensiondigits="howmany"/>
 				<incoming_prefix enabled="boolean">
-					<prefix type="add|del" side="caller|called">value</prefix>
+					<caller_prefix enabled="boolean" type="add|del">value</caller_prefix>
+					<called_prefix enabled="boolean" type="add|del">value</called_prefix>
 				</incoming_prefix>
 				<outgoing_prefix enabled="boolean">
-					<prefix type="add|del" side="caller|called">value</prefix>
+					<caller_prefix enabled="boolean" type="add|del">value</caller_prefix>
+					<called_prefix enabled="boolean" type="add|del">value</called_prefix>
 				</outgoing_prefix>
 			</port>
 			<port name="5/1" type="BRI" voice_enabled="boolean" multipoint="boolean" PoBRI="boolean">
@@ -86,12 +88,12 @@
 		</ports>
 		<multinumbers enable="boolean" how_many="integer" >
 			<multinumber how_many_cli="integer"> <!--almeno due-->
-				<cli cli="e164"/>
-				<cli cli="e164"/>
+				<cli>e164</cli>
+				<cli>e164</cli>
 				<ports bond="boolean" how_many="integer"> <!--more than one only if bonding yes-->
-					<port name="5/0"/>
-					<port name="5/1"/>
-					<port name="5/2"/>
+					<port>5/0</port>
+					<port>5/1</port>
+					<port>5/2</port>
 				</ports>
 			</multinumber>
 		</multinumbers>

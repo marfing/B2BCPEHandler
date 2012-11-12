@@ -52,6 +52,14 @@ poscli:
     pattern:  /Model/poscli/{howmany}
     defaults: { _controller: MarfiB2BCPETemplateBundle:Poscli:index, howmany: 0}
 
+clir:
+    pattern:  /Model/clir
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Clir:index}
+
+clircli:
+    pattern:  /Model/clircli/{howmany}
+    defaults: { _controller: MarfiB2BCPETemplateBundle:Clircli:index, howmany: 0}
+
 prefix:
     pattern:  /Model/prefix
     defaults: { _controller: MarfiB2BCPETemplateBundle:Prefix:index}

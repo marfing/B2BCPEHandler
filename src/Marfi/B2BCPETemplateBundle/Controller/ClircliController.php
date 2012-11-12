@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
 
-class PosCliController extends Controller
+class ClirCliController extends Controller
 {
 	
 	public function indexAction(Request $request, $howmany)
@@ -31,26 +31,26 @@ class PosCliController extends Controller
 					return $this->render('MarfiB2BCPETemplateBundle:Default:cliListForm.html.twig', 
 														array('list_form' => $form->createView(),
 																'error_msg'=>$errorMessage,
-																'servicetype'=>'pos',
+																'servicetype'=>'clir',
 																'summary'=>$xmlUser));
 				}
-				if(!$xmlUser->isGoodForService($cli)){
-					$errorMessage = "This CLI "  .$cli. " is not configured or already in use with another service, so cannot be used for a pos service";
+				if(!$xmlUser->isGoodForClir($cli)){
+					$errorMessage = "This CLI "  .$cli. " is not configured so cannot be used for a clir service";
 					return $this->render('MarfiB2BCPETemplateBundle:Default:cliListForm.html.twig', 
 														array('list_form' => $form->createView(),
 																'error_msg'=>$errorMessage,
-																'servicetype'=>'pos',
+																'servicetype'=>'clir',
 																'summary'=>$xmlUser));
 				}
 			}
-			$xmlUser->setPos($data);
+			$xmlUser->setClir($data);
 			$session->set('userxml',  $xmlUser );
-			return $this->redirect($this->generateUrl('clir', array('filename' =>'clir')));
-		}
+			return $this->redirect($this->generateUrl('prefix', array('filename' =>'prefix')));
+		} //method GET
 		return $this->render('MarfiB2BCPETemplateBundle:Default:cliListForm.html.twig', array('list_form' => $form->createView(),
 																																		'error_msg'=>'',
 																																		'summary'=>$xmlUser,
-																																		'servicetype'=>'pos'));
+																																		'servicetype'=>'clir'));
 	}
 	public function isE164($cli){   /// not standards compliant i.e won't meet E.164 etc for validating international phone numbers
 		trim($cli);
