@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<customer_data>
+	<customer_id value="empty">
+		<model vendor="empty" model="empty">
+			<sim_calls/>
+			<ports number_of_ports="empty"/>
+			<multinumbers enable="empty" how_many="empty"/>
+			<services>
+				<fax enabled="empty" number_of_cli="empty"/> 
+				<pos enabled="empty" number_of_cli="empty"/> 
+				<clir enabled="empty" number_of_cli="empty"/>
+			</services>
+		</model>
+	</customer_id>
+</customer_data>

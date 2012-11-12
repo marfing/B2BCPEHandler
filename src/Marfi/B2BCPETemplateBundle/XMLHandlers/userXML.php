@@ -134,17 +134,22 @@ class userXML
 	public function hasPos(){return $this->hasPos;}
 	public function hasPUI(){return $this->hasPUI;}
 	public function hasClir(){return $this->hasClir;}
+	public function hasClirForAll(){return $this->hasClirForAll;}
 	public function hasMultinumber(){return $this->multinumberPacketsCounter > 0;}
-	public function hasPortPoBRI($portname){$this->portsHandler->hasPortPoBRI($portname);}
-	public function hasPortBackupEnabled($portname){$this->portsHandler->hasPortBackupEnabled($portname);}
-	public function hasPortBackupAvailable($portname){$this->portsHandler->hasPortBackupAvailable($portname);}
+	public function hasPortPoBRI($portname){return $this->portsHandler->hasPortPoBRI($portname);}
+	public function hasPortBackupEnabled($portname){return $this->portsHandler->hasPortBackupEnabled($portname);}
+	public function hasPortBackupAvailable($portname){return $this->portsHandler->hasPortBackupAvailable($portname);}
 	public function hasPortSingleNumber($portname){return $this->portsHandler->hasPortSingleNumber($portname);}
 	public function hasPortGnr($portname){return $this->portsHandler->hasPortGnr($portname);}
+	public function hasPortGnrDid($portname){return $this->portsHandler->hasPortGnrDid($portname);}
 	public function hasPortPrefix($portname){return $this->portsHandler->hasPortPrefix($portname);}
+	public function hasPortIncomingPrefix($portname){return $this->portsHandler->hasPortIncomingPrefix($portname);}
+	public function hasPortOutgoingPrefix($portname){return $this->portsHandler->hasPortOutgoingPrefix($portname);}
 	public function hasPortIncomingCallerPrefix($portname){return $this->portsHandler->hasPortIncomingCallerPrefix($portname);}
 	public function hasPortIncomingCalledPrefix($portname){return $this->portsHandler->hasPortIncomingCalledPrefix($portname);}
 	public function hasPortOutgoingCallerPrefix($portname){return $this->portsHandler->hasPortOutgoingCallerPrefix($portname);}
 	public function hasPortOutgoingCalledPrefix($portname){return $this->portsHandler->hasPortOutgoingCalledPrefix($portname);}
+	public function hasServices(){return $this->hasClir || $this->hasFax || $this->hasPos;}
 	
 	public function multinumberPacketsLimitReached(){	return ($this->multinumberPacketsCounter < 4) ? false : true; 	}
 	public function isOneOfMyCli($cli){
@@ -208,16 +213,17 @@ class userXML
 	public function getNumberOfPorts(){return $this->portsHandler->getNumberOfPorts();}
 	public function getPortType($portname){return $this->portsHandler->getPortType($portname);}
 	public function getPortSingleNumber($portname){return $this->portsHandler->getPortSingleNumber($portname);}
-	public function getPortGnrDid($portname){$this->portsHandler->getPortGnrDid($portname);}
-	public function getPortGnrExtension($portname){$this->portsHandler->getPortGnrExtension($portname);}
-	public function getPortIncomingCallerPrefixType($portname){$this->portsHandler->getPortIncomingCallerPrefixType($portname);}
-	public function getPortIncomingCalledPrefixType($portname){$this->portsHandler->getPortIncomingCalledPrefixType($portname);}
-	public function getPortOutgoingCallerPrefixType($portname){$this->portsHandler->getPortOutgoingCallerPrefixType($portname);}
-	public function getPortOutgoingCalledPrefixType($portname){$this->portsHandler->getPortOutgoingCalledPrefixType($portname);}
-	public function getPortIncomingCallerPrefix($portname){$this->portsHandler->getPortIncomingCallerPrefix($portname);}
-	public function getPortIncomingCalledPrefix($portname){$this->portsHandler->getPortIncomingCalledPrefix($portname);}
-	public function getPortOutgoingCallerPrefix($portname){$this->portsHandler->getPortOutgoingCallerPrefix($portname);}
-	public function getPortOutgoingCalledPrefix($portname){$this->portsHandler->getPortOutgoingCalledPrefix($portname);}
+	public function getPortGnrRoot($portname){return $this->portsHandler->getPortGnrRoot($portname);}
+	public function getPortGnrDid($portname){return $this->portsHandler->getPortGnrDid($portname);}
+	public function getPortGnrExtension($portname){return $this->portsHandler->getPortGnrExtension($portname);}
+	public function getPortIncomingCallerPrefixType($portname){return $this->portsHandler->getPortIncomingCallerPrefixType($portname);}
+	public function getPortIncomingCalledPrefixType($portname){return $this->portsHandler->getPortIncomingCalledPrefixType($portname);}
+	public function getPortOutgoingCallerPrefixType($portname){return $this->portsHandler->getPortOutgoingCallerPrefixType($portname);}
+	public function getPortOutgoingCalledPrefixType($portname){return $this->portsHandler->getPortOutgoingCalledPrefixType($portname);}
+	public function getPortIncomingCallerPrefix($portname){return $this->portsHandler->getPortIncomingCallerPrefix($portname);}
+	public function getPortIncomingCalledPrefix($portname){return $this->portsHandler->getPortIncomingCalledPrefix($portname);}
+	public function getPortOutgoingCallerPrefix($portname){return $this->portsHandler->getPortOutgoingCallerPrefix($portname);}
+	public function getPortOutgoingCalledPrefix($portname){return $this->portsHandler->getPortOutgoingCalledPrefix($portname);}
 	public function getHowManyMultinumbers(){return $this->multinumberPacketsCounter;}
 	public function getHowManyCliHasFax(){return count($this->faxCliArray);}
 	public function getCliFaxArray(){return $this->faxCliArray;}
@@ -225,12 +231,8 @@ class userXML
 	public function getCliPosArray(){return $this->posCliArray;}
 	public function getHowManyCliHasClir(){return count($this->clirCliArray);}
 	public function getCliClirArray(){return $this->clirCliArray;}
-	public function getMultinumberCliArray($index){
-		return $this->multinumbersArray[$index]->getCliList();
-	}
-	public function getMultinumberPortsArray($index){
-		return $this->multinumbersArray[$index]->getPortsNameArray();
-	}
+	public function getMultinumberCliArray($index){	return $this->multinumbersArray[$index]->getCliList();	}
+	public function getMultinumberPortsArray($index){return $this->multinumbersArray[$index]->getPortsNameArray();	}
 	
 	public function printUserXML(){
 		echo "<table border=\"1\" ><tr><td>CustomerID</td><td> " .$this->customerId. "</td></tr>";
@@ -397,12 +399,19 @@ class userXMLportsHandler
 				return $port->hasGnr();
 		return false;
 	}
+	public function hasPortGnrDid($name){
+		foreach ($this->portsArray as $port)
+			if($port->isMyName($name))
+				return $port->hasGnrDid();
+		return false;
+	}
 	public function hasPortPrefix($name){
 		foreach ($this->portsArray as $port)
 			if($port->isMyName($name))
 				return $port->hasPrefix();
 		return false;
 	}
+	public function hasPortIncomingPrefix($name){ return $this->hasPortIncomingCallerPrefix($name) || $this->hasPortIncomingCalledPrefix($name); }
 	public function hasPortIncomingCallerPrefix($name){
 		foreach ($this->portsArray as $port)
 			if($port->isMyName($name))
@@ -415,6 +424,7 @@ class userXMLportsHandler
 				return $port->hasIncomingCalledPrefix();
 		return false;
 	}
+	public function hasPortOutgoingPrefix($name){ return $this->hasPortOutgoingCallerPrefix($name) || $this->hasPortOutgoingCalledPrefix($name); }
 	public function hasPortOutgoingCallerPrefix($name){
 		foreach ($this->portsArray as $port)
 			if($port->isMyName($name))
@@ -544,6 +554,12 @@ class userXMLportsHandler
 			if($port->isMyName($portname)) 
 				return (string) $port->getSingleNumber();
 		return "Port name doesn't exist !!";
+	}
+	public function getPortGnrRoot($portname){
+		foreach($this->portsArray as $port)
+			if($port->isMyName($portname))
+				return  (string)$port->getGnrRoot();
+		return 'Not found';
 	}
 	public function getPortGnrDid($portname){
 		foreach($this->portsArray as $port)
@@ -703,7 +719,6 @@ class userXMLport
 		if(isset($callerprefix) or isset($calledprefix)){
 			$this->incomingPrefixRule->setPrefix($callerprefix, $callertype, $calledprefix, $calledtype);
 			$this->hasIncomingPrefix = true;
-//			$this->printPrefix();
 		}
 	}
 	public function setOutgoingPrefix($callerprefix, $callertype, $calledprefix, $calledtype){
@@ -711,7 +726,6 @@ class userXMLport
 		if(isset($callerprefix) or isset($calledprefix)){
 			$this->outgoingPrefixRule->setPrefix($callerprefix, $callertype, $calledprefix, $calledtype);
 			$this->hasOutgoingPrefix = true;
-//			$this->printPrefix();
 		}
 	}
 	public function setPoBRI(){$this->pobri = true;}
@@ -747,7 +761,7 @@ class userXMLport
 	public function getName(){ return $this->name; }
 	public function getTypeString(){return (string)$this->typeString;}
 	public function getSingleNumber(){return $this->singleNumber->getCli();}
-	public function getGnrRoot(){return $this->gnr->getRoot();}
+	public function getGnrRoot(){return (string)$this->gnr->getRoot(); }
 	public function getGnrDid(){return $this->gnr->hasDid();}
 	public function getExtensionDigits(){return $this->gnr->getExtensionDigits();}
 	public function getType(){return $this->typeString;}
@@ -837,7 +851,7 @@ class gnr
 	public function setRoot($root){ $this->root = $root; }
 	public function setDid($did){ $this->did = $did;}
 	public function setExtensionDigits($extens){$this->extensionDigits=$extens;}
-	public function getRoot(){ return $this->root; }
+	public function getRoot(){ return (string)$this->root; }
 	public function hasDid(){ return $this->did;}
 	public function getExtensionDigits(){return $this->extensionDigits;}
 }
