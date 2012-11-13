@@ -36,7 +36,9 @@ class PobriController extends Controller
 		if($request->getMethod()=='POST'){
 			$form->bindRequest($request);
 			if($form->isValid()){
-				$xmlUser->setPoBRI($task->getPortList());
+				if($xmlUser->IsVendor("OneAccess"))
+					foreach ($xmlUser->getNoBackupBRIPortNamesArray() as $value) $xmlUser->setPoBRI($value);
+				else $xmlUser->setPoBRI($task->getPortList());
 //				$session->set('userxml',  $xmlUser );
 				return $this->redirect($this->generateUrl('summary'));
 			}

@@ -196,6 +196,7 @@ class userXML
 	public function isGoodForClir($cli){return $this->isOneOfMyCli($cli); }
 	public function isPortEnabled($portname){return $this->portsHandler->isPortEnabled($portname);}
 	public function isPortMultipoint($portname){return $this->portsHandler->isPortMultipoint($portname);}
+	public function isVendor($portname){return $this->vendorName == $portname;}
 	
 	public function getSingleNumbersArray(){return $this->portsHandler->getSingleNumbersArray();}
 	public function getPortNamesArray(){ return $this->portsHandler->getPortNamesArray();}

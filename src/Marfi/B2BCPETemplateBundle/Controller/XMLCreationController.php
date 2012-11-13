@@ -67,7 +67,7 @@ class XMLCreationController extends Controller
 					$caller_prefix[0]=$xmlUser->getPortIncomingCallerPrefix($portname);
 				} else 	$caller_prefix[0]['enabled']='false';
 				if($xmlUser->hasPortIncomingCalledPrefix($portname)){
-					$called_prefix[0]=$incoming_prefix->addChild('called_prefix');
+					$called_prefix=$incoming_prefix->addChild('called_prefix');
 					$called_prefix[0]['enabled']='true';
 					$called_prefix[0]['type']=$xmlUser->getPortIncomingCalledPrefixType($portname);
 					$called_prefix[0]=$xmlUser->getPortIncomingCalledPrefix($portname);
@@ -78,13 +78,13 @@ class XMLCreationController extends Controller
 			if($xmlUser->hasPortOutgoingPrefix($portname)){
 				$outgoing_prefix[0]['enabled']='true';
 				if($xmlUser->hasPortOutgoingCallerPrefix($portname)){
-					$caller_prefix[0]=$outgoing_prefix->addChild('caller_prefix');
+					$caller_prefix=$outgoing_prefix[0]->addChild('caller_prefix');
 					$caller_prefix[0]['enabled']='true';
 					$caller_prefix[0]['type']=$xmlUser->getPortOutgoingCallerPrefixType($portname);
 					$caller_prefix[0]=$xmlUser->getPortOutgoingCallerPrefix($portname);
 				} else 	$caller_prefix[0]['enabled']='false';
 				if($xmlUser->hasPortOutgoingCalledPrefix($portname)){
-					$called_prefix[0]=$outgoing_prefix->addChild('called_prefix');
+					$called_prefix=$outgoing_prefix[0]->addChild('called_prefix');
 					$called_prefix[0]['enabled']='true';
 					$called_prefix[0]['type']=$xmlUser->getPortOutgoingCalledPrefixType($portname);
 					$called_prefix[0]=$xmlUser->getPortOutgoingCalledPrefix($portname);
@@ -102,11 +102,11 @@ class XMLCreationController extends Controller
 					$multinumber->cli[$counter] = $clivalue;
 					$counter++;
 				}
-				$ports=$multinumber->addChild('port');
+				$ports=$multinumber->addChild('ports');
 				$ports['how_many']=count($xmlUser->getMultinumberPortsArray($i));
 				$counter = 0;
 				foreach ($xmlUser->getMultinumberPortsArray($i) as $portname){
-					$multinumber->ports[$counter] = $portname;
+					$ports->port[$counter] = $portname;
 					$counter++;
 				}
 			} //end multinumber
