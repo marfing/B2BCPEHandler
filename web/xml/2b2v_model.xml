@@ -4,6 +4,7 @@
 	<name>2b2v</name>
 	<sim_calls>
 		<value>2</value>
+		<value>3</value>
 		<value>4</value>
 	</sim_calls>
 	<port_details number="4">

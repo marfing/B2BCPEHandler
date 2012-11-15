@@ -1,72 +1,42 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <customer_data>
-  <customer_id value="pluto">
-    <model vendor="OneAccess" model="4b2v">
-      <sim_calls>6</sim_calls>
-      <ports number_of_ports="6">
+  <customer_id value="pippo5">
+    <model vendor="OneAccess" model="2b2v">
+      <sim_calls>4</sim_calls>
+      <ports number_of_ports="4">
         <port name="5/0" type="BRI" voice_enabled="true" multipoint="false" PoBRI="false" backup_enabled="false">
-          <single_number enabled="true">0704602406</single_number>
-          <GNR enabled="true" root="070123" DID="1" extensiondigits="2"/>
-          <incoming_prefix enabled="true">
-            <caller_prefix enabled="true" type="add">0</caller_prefix>
-          </incoming_prefix>
-          <outgoing_prefix enabled="true">
-            <caller_prefix enabled="true" type="del">0</caller_prefix>
-          </outgoing_prefix>
-        </port>
-        <port name="5/1" type="BRI" voice_enabled="true" multipoint="false" PoBRI="true" backup_enabled="false">
-          <single_number enabled="true">0704602406</single_number>
-          <GNR enabled="true" root="070123" DID="1" extensiondigits="2"/>
+          <single_number enabled="true">0558496195</single_number>
+          <GNR enabled="false"/>
           <incoming_prefix enabled="false"/>
           <outgoing_prefix enabled="false"/>
         </port>
-        <port name="5/2" type="BRI" voice_enabled="false" multipoint="true" PoBRI="false" backup_enabled="false">
+        <port name="5/1" type="BRI" voice_enabled="true" multipoint="false" PoBRI="false" backup_enabled="false">
+          <single_number enabled="true">0558495471</single_number>
+          <GNR enabled="false"/>
+          <incoming_prefix enabled="false"/>
+          <outgoing_prefix enabled="false"/>
+        </port>
+        <port name="5/2" type="POTS" voice_enabled="false" multipoint="false" PoBRI="false" backup_enabled="false">
           <single_number enabled="false"/>
           <GNR enabled="false"/>
           <incoming_prefix enabled="false"/>
           <outgoing_prefix enabled="false"/>
         </port>
-        <port name="5/3" type="BRI" voice_enabled="false" multipoint="false" PoBRI="false" backup_enabled="true">
-          <single_number enabled="false"/>
-          <GNR enabled="false"/>
-          <incoming_prefix enabled="false"/>
-          <outgoing_prefix enabled="false"/>
-        </port>
-        <port name="5/4" type="POTS" voice_enabled="false" multipoint="false" PoBRI="false" backup_enabled="false">
-          <single_number enabled="false"/>
-          <GNR enabled="false"/>
-          <incoming_prefix enabled="false"/>
-          <outgoing_prefix enabled="false"/>
-        </port>
-        <port name="5/5" type="POTS" voice_enabled="true" multipoint="false" PoBRI="false" backup_enabled="false">
-          <single_number enabled="true">0704601234</single_number>
+        <port name="5/3" type="POTS" voice_enabled="true" multipoint="false" PoBRI="false" backup_enabled="false">
+          <single_number enabled="true">0558494303</single_number>
           <GNR enabled="false"/>
           <incoming_prefix enabled="false"/>
           <outgoing_prefix enabled="false"/>
         </port>
       </ports>
-      <multinumbers enable="true" how_many="1">
-        <multinumber>
-          <cli>012345</cli>
-          <cli>09876</cli>
-          <cli>0456765</cli>
-          <cli>0987476</cli>
-          <ports how_many="2">
-            <port>5/0</port>
-            <port>5/1</port>
-          </ports>
-        </multinumber>
-      </multinumbers>
+      <multinumbers enable="false" how_many="0"/>
       <services enabled="true">
-        <fax enabled="true" number_of_cli="3">
-          <cli>012345</cli>
-          <cli>0704602406</cli>
-          <cli>07012304</cli>
+        <fax enabled="true" number_of_cli="1">
+          <cli>0558494303</cli>
         </fax>
         <pos enabled="false" number_of_cli="0"/>
-        <clir enabled="true" number_of_cli="2">
-          <cli>0701231</cli>
-          <cli>0704602406</cli>
+        <clir enabled="true" number_of_cli="1">
+          <cli>0558495471</cli>
         </clir>
       </services>
     </model>
