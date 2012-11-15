@@ -1,43 +1,57 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <customer_data>
-  <customer_id value="pippo5">
+  <customer_id value="pippo">
     <model vendor="OneAccess" model="2b2v">
       <sim_calls>4</sim_calls>
-      <ports number_of_ports="4">
+      <ports number_of_ports="5">
         <port name="5/0" type="BRI" voice_enabled="true" multipoint="false" PoBRI="false" backup_enabled="false">
-          <single_number enabled="true">0558496195</single_number>
+          <single_number enabled="true">0704602406</single_number>
           <GNR enabled="false"/>
           <incoming_prefix enabled="false"/>
           <outgoing_prefix enabled="false"/>
         </port>
         <port name="5/1" type="BRI" voice_enabled="true" multipoint="false" PoBRI="false" backup_enabled="false">
-          <single_number enabled="true">0558495471</single_number>
+          <single_number enabled="true">0704602406</single_number>
           <GNR enabled="false"/>
           <incoming_prefix enabled="false"/>
           <outgoing_prefix enabled="false"/>
         </port>
-        <port name="5/2" type="POTS" voice_enabled="false" multipoint="false" PoBRI="false" backup_enabled="false">
+        <port name="5/2" type="BRI" voice_enabled="true" multipoint="false" PoBRI="false" backup_enabled="false">
+          <single_number enabled="false"/>
+          <GNR enabled="true" root="070123" DID="1" extensiondigits="2"/>
+          <incoming_prefix enabled="false"/>
+          <outgoing_prefix enabled="false"/>
+        </port>
+        <port name="5/3" type="POTS" voice_enabled="false" multipoint="false" PoBRI="false" backup_enabled="false">
           <single_number enabled="false"/>
           <GNR enabled="false"/>
           <incoming_prefix enabled="false"/>
           <outgoing_prefix enabled="false"/>
         </port>
-        <port name="5/3" type="POTS" voice_enabled="true" multipoint="false" PoBRI="false" backup_enabled="false">
-          <single_number enabled="true">0558494303</single_number>
+        <port name="5/4" type="POTS" voice_enabled="true" multipoint="false" PoBRI="false" backup_enabled="false">
+          <single_number enabled="true">070213456</single_number>
           <GNR enabled="false"/>
           <incoming_prefix enabled="false"/>
           <outgoing_prefix enabled="false"/>
         </port>
       </ports>
-      <multinumbers enable="false" how_many="0"/>
+      <multinumbers enable="true" how_many="1">
+        <multinumber>
+          <cli>034246</cli>
+          <cli>iuotyrrdfg</cli>
+          <cli>2343634</cli>
+          <ports how_many="2">
+            <port>5/0</port>
+            <port>5/1</port>
+          </ports>
+        </multinumber>
+      </multinumbers>
       <services enabled="true">
         <fax enabled="true" number_of_cli="1">
-          <cli>0558494303</cli>
+          <cli>0704602406</cli>
         </fax>
         <pos enabled="false" number_of_cli="0"/>
-        <clir enabled="true" number_of_cli="1">
-          <cli>0558495471</cli>
-        </clir>
+        <clir enabled="true" number_of_cli="all"/>
       </services>
     </model>
   </customer_id>
