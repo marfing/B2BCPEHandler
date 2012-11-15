@@ -69,6 +69,7 @@ class MultinumberTask{
 		foreach ($this->getCliList() as $validcli)
 			if(!$this->isE164($validcli)) 
 				return false;
+			
 		return true;
 	}
 	public function isE164($cli){   /// not standards compliant i.e won't meet E.164 etc for validating international phone numbers
