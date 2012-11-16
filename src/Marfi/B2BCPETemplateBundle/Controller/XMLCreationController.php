@@ -171,8 +171,9 @@ class XMLCreationController extends Controller
 		$dom->preserveWhiteSpace = false;
 		$dom->formatOutput = true;
 		$dom->loadXML($xmlFile->asXML());
-		$dom->save('testXML.xml');
-		echo "File has been saved in: " . $_SERVER['DOCUMENT_ROOT']. "<br>";
+		$filename = $_SERVER['DOCUMENT_ROOT'] . "usersXML/" . $xmlUser->getCustomerID() . "_" . $xmlUser->getVendor() . "_" . $xmlUser->getModel() . ".xml";
+		if ($dom->save($filename)) echo "File has been saved in: " . $_SERVER['DOCUMENT_ROOT']. "/userXML/<br>";
+		 else echo "ERROR, XML file not saved in: " .$filename. "!!";
 		echo "If you are using Firefox to display xml file in this browser page, right click and  select \"View page source\" or \"View source\"<br>";
 		return new Response($dom->saveXML());
 //		return $this->render('MarfiB2BCPETemplateBundle:Default:xmlshow.html.twig', array('xmlfile'=>$dom->saveXML()));
