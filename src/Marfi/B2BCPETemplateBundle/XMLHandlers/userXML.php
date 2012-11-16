@@ -61,7 +61,7 @@ class userXML
 		$this->hasPUI = true;
 	}
 	public function setGnr($root, $did, $digits, $portName){
-		echo "<br><br>setGnr - portName: " .$portName. "<br>";
+//		echo "<br><br>setGnr - portName: " .$portName. "<br>";
 		$this->hasGnr = true;
 		$this->hasPUI = true;
 		$this->gnrRoot = $root;
@@ -70,15 +70,15 @@ class userXML
 		//add cli to the local list
 		for($i=1; $i<=$this->gnrExtension; $i++){
 			$base = intval($this->gnrRoot)*pow(10,$i);
-			echo "<br>base = " .$base . "<br>";
+			//echo "<br>base = " .$base . "<br>";
 			$finalnumber = $base + pow(10,$i)-1;
-			echo "finalnumber: " .$finalnumber. "<br>";
+			//echo "finalnumber: " .$finalnumber. "<br>";
 			$counter = 1;
 			for($j=$base; $j<$finalnumber;$j++){
 				$mygnrcli = '0' . ($base+$counter);
 				if(!$this->isOneOfMyCli($mygnrcli)){
 					$this->cliList[] = $mygnrcli;
-					echo "cli: " .$mygnrcli;
+			//		echo "cli: " .$mygnrcli;
 				}
 				$counter++;
 			}
@@ -673,7 +673,6 @@ class userXMLportsHandler
 			echo "</tr></table>";
 		} else echo "<h2 style=\"color:red\">ERROR - Trying to print ports that does not exist!!!!</h2>";
 	}
-	
 }
 
 class userXMLport

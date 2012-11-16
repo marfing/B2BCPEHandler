@@ -46,7 +46,7 @@ class GnrTask{
 			for($j=$base; $j<$finalnumber;$j++){
 				$cli = '0' . ($base+$counter);
 				if($this->userXml->isOneOfMyCli($cli)){
-					echo "This number belonging to GNR range is already configured: " .$cli. " !!!!!";
+					echo "<h2>This number belonging to GNR range is already configured: " .$cli. " !!!!!</h2>";
 					return false;
 				}
 				$counter++;
