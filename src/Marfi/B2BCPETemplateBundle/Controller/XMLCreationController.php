@@ -21,6 +21,7 @@ class XMLCreationController extends Controller
 		$xmlFile = simplexml_load_file($filename);
 //		echo var_dump($xmlFile);
 						//->value = $xmlUser->getCustomerID();
+		$xmlFile->project_manager['uname'] = $this->get('security.context')->getToken()->getUser()->getUserName();
 		$xmlFile->customer_id['value'] = $xmlUser->getCustomerID();
 //		echo "<br><br> After customer_id change: " .  var_dump($xmlFile);
 		$xmlFile->customer_id->model['vendor']=$xmlUser->getVendor();
@@ -171,8 +172,9 @@ class XMLCreationController extends Controller
 		$dom->preserveWhiteSpace = false;
 		$dom->formatOutput = true;
 		$dom->loadXML($xmlFile->asXML());
-		$filename = $_SERVER['DOCUMENT_ROOT'] . "usersXML/" . $xmlUser->getCustomerID() . "_" . $xmlUser->getVendor() . "_" . $xmlUser->getModel() . ".xml";
-		if ($dom->save($filename)) echo "File has been saved in: " . $_SERVER['DOCUMENT_ROOT']. "/userXML/<br>";
+		$date = date("Ymd\_His");
+		$filename = $_SERVER['DOCUMENT_ROOT'] . "usersXML/" . $xmlUser->getCustomerID() . "_" . $xmlUser->getVendor() .  $xmlUser->getModel() .  "_" . $date .".xml";
+		if ($dom->save($filename)) echo "File has been saved in: " . $filename . "<br>";
 		 else echo "ERROR, XML file not saved in: " .$filename. "!!";
 		echo "If you are using Firefox to display xml file in this browser page, right click and  select \"View page source\" or \"View source\"<br>";
 		return new Response($dom->saveXML());
