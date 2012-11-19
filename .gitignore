@@ -5,3 +5,4 @@ app/config/security.yml
 build/
 vendor/
 web/usersXML/*.xml
+/.git-rewrite/
