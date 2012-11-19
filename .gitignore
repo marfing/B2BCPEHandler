@@ -1,6 +1,7 @@
 web/bundles/
 app/cache/*
 app/logs/*
+app/config/security.yml
 build/
 vendor/
 web/usersXML/*.xml
